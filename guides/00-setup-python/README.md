@@ -116,3 +116,7 @@ the course exercises.
 - How to create and activate a virtual environment.
 - How to install the Open Data Products SDK.
 - How to confirm the SDK command works.
+
+## Next Lesson
+
+Continue to [Guide 1: Validate an ODPS Product](../01-validate-product/).

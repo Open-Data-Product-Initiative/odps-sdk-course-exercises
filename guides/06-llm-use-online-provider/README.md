@@ -86,3 +86,7 @@ open-data-products generate \
 - Provider settings belong in `generation.config.yaml`.
 - Secrets stay in environment variables.
 - `--kind product` generates one product reference fragment.
+
+## Next Lesson
+
+Continue to [Guide 7: Generate a Full Fragment Set from Source Documents](../07-llm-generate-fragment-set/).

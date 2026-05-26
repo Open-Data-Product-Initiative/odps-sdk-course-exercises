@@ -59,3 +59,7 @@ target types.
 - ODPV commands help humans use shared terminology.
 - Search and resolve are good starting points.
 - Relationship checks help avoid inconsistent graph language.
+
+## Next Lesson
+
+Continue to [Guide 4: Convert GraphML to ODPG and Open an Explorer](../04-convert-graph-to-odpg/).

@@ -60,3 +60,7 @@ signal_<generated-id>.yaml
 - `--kind signal` selects the signal prompt.
 - The source file can be plain `.txt`.
 - The output is a separate ODPC fragment YAML file.
+
+## Next Lesson
+
+Continue to [Guide 6: Generate One Artifact with an Online Provider](../06-llm-use-online-provider/).

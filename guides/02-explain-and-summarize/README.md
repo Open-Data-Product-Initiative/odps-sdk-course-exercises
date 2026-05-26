@@ -56,3 +56,7 @@ ODPG files, this helps discover linked artifacts.
 - `explain` gives a readable document overview.
 - `summary` gives lightweight metadata without loading the body into output.
 - `refs` helps discover `$ref` and `ref` links.
+
+## Next Lesson
+
+Continue to [Guide 3: Use the ODPV Vocabulary Helpers](../03-use-vocabulary-helpers/).

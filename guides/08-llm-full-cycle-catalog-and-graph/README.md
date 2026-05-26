@@ -132,3 +132,7 @@ open-data-products odpg-summary fragments/odpg_graph.yaml
 - Generation creates separate ODPC fragment files, not one large mixed file.
 - The generated fragments can become an ODPC catalog.
 - The generated ODPG graph can become an interactive HTML explorer.
+
+## Next Step
+
+Return to the [course guide index](../../README.md).

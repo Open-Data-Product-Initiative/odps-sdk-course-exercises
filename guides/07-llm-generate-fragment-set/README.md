@@ -79,3 +79,7 @@ open-data-products validate fragments/odpg_graph.yaml --json
 - Folder input lets the model consider several source documents together.
 - Generated fragments are separate YAML files.
 - The generated `odpg_graph.yaml` links the generated fragment ids.
+
+## Next Lesson
+
+Continue to [Guide 8: Full Cycle from Source Docs to Catalog and Graph HTML](../08-llm-full-cycle-catalog-and-graph/).

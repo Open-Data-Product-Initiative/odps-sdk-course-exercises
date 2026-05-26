@@ -62,3 +62,7 @@ Open `graph-explorer.html` in a browser.
 - `odpg-convert` turns external graph formats into ODPG YAML.
 - The converted graph can be validated like any other ODPG document.
 - The same graph can be rendered as a standalone HTML explorer.
+
+## Next Lesson
+
+Continue to [Guide 5: Generate One Signal Fragment with Ollama](../05-llm-generate-one-signal/).

@@ -75,3 +75,7 @@ Use `--json` when the result is consumed by CI, scripts, or another tool.
 - Invalid files produce validation errors learners can fix.
 - Human-readable output is useful while learning.
 - JSON output is better for automation.
+
+## Next Lesson
+
+Continue to [Guide 2: Explain and Summarize a Product](../02-explain-and-summarize/).
