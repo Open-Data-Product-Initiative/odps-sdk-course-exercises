@@ -39,48 +39,51 @@ This makes the `python` command available in your terminal.
 ## 3. Create a course folder
 
 ```bash
-mkdir odp-course
-cd odp-course
+mkdir odps-sdk-course
+cd odps-sdk-course
 ```
 
-Keep all course files in this folder so each lesson is easy to find.
+This dedicated folder keeps the SDK work separate from your other Python
+projects. You will use it for the installation, test commands, and later
+course exercises.
 
 ## 4. Create a virtual environment
 
 ```bash
-python -m venv .venv
+python3 -m venv .venv-sdk
 ```
 
-If your computer uses `python3`, run:
+If your computer uses `python`, run:
 
 ```bash
-python3 -m venv .venv
+python -m venv .venv-sdk
 ```
 
-A virtual environment keeps the SDK and its dependencies separate from the rest
-of your computer.
+A virtual environment gives this project its own Python package space. That
+means SDK packages and dependencies do not interfere with other projects on
+your machine.
 
 ## 5. Activate the virtual environment
 
 On Windows PowerShell:
 
 ```powershell
-.\.venv\Scripts\Activate.ps1
+.\.venv-sdk\Scripts\Activate.ps1
 ```
 
 On Windows Command Prompt:
 
 ```bat
-.\.venv\Scripts\activate.bat
+.\.venv-sdk\Scripts\activate.bat
 ```
 
 On macOS or Linux:
 
 ```bash
-source .venv/bin/activate
+source .venv-sdk/bin/activate
 ```
 
-After activation, your terminal prompt usually starts with `(.venv)`.
+After activation, your terminal prompt usually starts with `(.venv-sdk)`.
 
 ## 6. Upgrade `pip`
 
