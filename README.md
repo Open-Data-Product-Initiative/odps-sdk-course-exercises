@@ -6,6 +6,10 @@ These short guides are designed for learners who installed the SDK from PyPI:
 pip install open-data-products
 ```
 
+These exercises are part of the Open Data Products SDK MasterClass on Udemy.
+For the full experience, faster progress, and a more complete learning path,
+take the course: https://www.udemy.com/course/
+
 The first four guides do not use an LLM. They cover validation, explanation,
 vocabulary lookup, and graph conversion.
 
