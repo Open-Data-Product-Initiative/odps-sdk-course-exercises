@@ -3,13 +3,14 @@
 This guide uses the same `product.yaml` from Guide 1 and shows how to inspect
 the document without reading every line manually.
 
-## 1. Start from the previous product
+## 1. Open the guide folder
 
 ```bash
-cd odp-course/01-validate
+cd guides/02-explain-and-summarize
 ```
 
-If you skipped Guide 1, create `product.yaml` first:
+This folder already contains the same `product.yaml` used in Guide 1. Validate
+it before inspecting it:
 
 ```bash
 open-data-products validate product.yaml

@@ -3,14 +3,16 @@
 This guide converts a small external GraphML graph into ODPG YAML, validates
 the result, and creates a standalone HTML graph explorer.
 
-## 1. Create a lesson folder
+## 1. Open the guide folder
 
 ```bash
-mkdir -p odp-course/04-graph
-cd odp-course/04-graph
+cd guides/04-convert-graph-to-odpg
 ```
 
-## 2. Create `graph.graphml`
+This folder already contains `graph.graphml`, so you can run the conversion
+commands immediately.
+
+If you want to create the file yourself, replace `graph.graphml` with:
 
 ```bash
 cat > graph.graphml <<'XML'
@@ -32,7 +34,7 @@ cat > graph.graphml <<'XML'
 XML
 ```
 
-## 3. Convert GraphML to ODPG YAML
+## 2. Convert GraphML to ODPG YAML
 
 ```bash
 open-data-products odpg-convert \
@@ -41,13 +43,13 @@ open-data-products odpg-convert \
   --json
 ```
 
-## 4. Validate the converted graph
+## 3. Validate the converted graph
 
 ```bash
 open-data-products validate graph.yaml --json
 ```
 
-## 5. Generate a graph explorer
+## 4. Generate a graph explorer
 
 ```bash
 open-data-products odpg-generate graph.yaml --output graph-explorer.html --json

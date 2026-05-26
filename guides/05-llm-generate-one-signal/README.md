@@ -12,15 +12,16 @@ ollama list
 
 Keep Ollama running locally.
 
-## 2. Create a lesson folder
+## 2. Open the guide folder and prepare output
 
 ```bash
-mkdir -p odp-course/05-llm-signal/source_docs
-mkdir -p odp-course/05-llm-signal/fragments
-cd odp-course/05-llm-signal
+cd guides/05-llm-generate-one-signal
+mkdir -p fragments
 ```
 
-## 3. Add one source file
+This folder already contains `source_docs/turnaround-delay-signal.txt`.
+
+If you want to create the file yourself, replace it with:
 
 ```bash
 cat > source_docs/turnaround-delay-signal.txt <<'TXT'
@@ -32,7 +33,7 @@ to trigger recovery actions before departure delay becomes unavoidable.
 TXT
 ```
 
-## 4. Generate one signal fragment
+## 3. Generate one signal fragment
 
 ```bash
 open-data-products generate \
@@ -42,7 +43,7 @@ open-data-products generate \
   --json
 ```
 
-## 5. Inspect the result
+## 4. Inspect the result
 
 ```bash
 ls fragments/

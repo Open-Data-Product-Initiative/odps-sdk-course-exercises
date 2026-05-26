@@ -3,14 +3,18 @@
 This is the first useful SDK workflow: validate a product YAML file and get a
 machine-readable result.
 
-## 1. Create a lesson folder
+## 1. Open the guide folder
 
 ```bash
-mkdir -p odp-course/01-validate
-cd odp-course/01-validate
+cd guides/01-validate-product
 ```
 
-## 2. Create `product.yaml`
+This folder already contains:
+
+- `product.yaml`: a valid ODPS product.
+- `invalid-product.yaml`: an intentionally invalid ODPS product.
+
+If you want to create the file yourself, replace `product.yaml` with:
 
 ```bash
 cat > product.yaml <<'YAML'
@@ -27,7 +31,7 @@ product:
 YAML
 ```
 
-## 3. Validate the file
+## 2. Validate the file
 
 ```bash
 open-data-products validate product.yaml
@@ -38,6 +42,23 @@ Expected result:
 ```text
 Validation successful!
 ```
+
+## 3. Validate an invalid file
+
+Run validation against the intentionally broken example:
+
+```bash
+open-data-products validate invalid-product.yaml
+```
+
+Expected result:
+
+```text
+Validation failed
+```
+
+The file is valid YAML, but it is missing `productID`, which is required for
+this product document.
 
 ## 4. Get JSON output
 
@@ -51,5 +72,6 @@ Use `--json` when the result is consumed by CI, scripts, or another tool.
 
 - `open-data-products validate` detects the document type.
 - The SDK validates ODPS 4.x product files.
+- Invalid files produce validation errors learners can fix.
 - Human-readable output is useful while learning.
 - JSON output is better for automation.

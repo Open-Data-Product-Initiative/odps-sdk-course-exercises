@@ -3,15 +3,17 @@
 This guide uses local Ollama/Qwen 2.5 to generate multiple ODPC fragments and
 one ODPG graph from a folder of source documents.
 
-## 1. Prepare folders
+## 1. Open the guide folder and prepare output
 
 ```bash
-mkdir -p odp-course/07-fragment-set/source_docs
-mkdir -p odp-course/07-fragment-set/fragments
-cd odp-course/07-fragment-set
+cd guides/07-llm-generate-fragment-set
+mkdir -p fragments
 ```
 
-## 2. Add Markdown and text source files
+This folder already contains the Markdown and text source files under
+`source_docs/`.
+
+If you want to create them yourself, replace the files with:
 
 ```bash
 cat > source_docs/airport-operations-product.md <<'MD'
@@ -43,7 +45,7 @@ conflict with another aircraft movement.
 TXT
 ```
 
-## 3. Generate the full set
+## 2. Generate the full set
 
 ```bash
 open-data-products generate \
@@ -52,7 +54,7 @@ open-data-products generate \
   --json
 ```
 
-## 4. Inspect generated artifacts
+## 3. Inspect generated artifacts
 
 ```bash
 ls fragments/
@@ -66,7 +68,7 @@ Expected artifact types:
 - `signal_*.yaml`
 - `odpg_graph.yaml`
 
-## 5. Validate the graph
+## 4. Validate the graph
 
 ```bash
 open-data-products validate fragments/odpg_graph.yaml --json

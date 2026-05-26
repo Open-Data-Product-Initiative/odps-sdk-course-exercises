@@ -3,7 +3,16 @@
 The SDK includes Open Data Product Vocabulary helpers. These are useful when
 you want to use standard terms consistently.
 
-## 1. Summarize the vocabulary
+## 1. Open the guide folder
+
+```bash
+cd guides/03-use-vocabulary-helpers
+```
+
+This guide does not need input files. The commands read the vocabulary bundled
+with the SDK.
+
+## 2. Summarize the vocabulary
 
 ```bash
 open-data-products odpv-summary --json
@@ -11,7 +20,7 @@ open-data-products odpv-summary --json
 
 This returns vocabulary sections and term counts.
 
-## 2. Search by keyword
+## 3. Search by keyword
 
 ```bash
 open-data-products odpv-search "governance policy risk" --limit 3 --json
@@ -20,7 +29,7 @@ open-data-products odpv-search "governance policy risk" --limit 3 --json
 Search helps you find the right vocabulary term when you do not know the exact
 term id.
 
-## 3. Resolve a phrase to a canonical term
+## 4. Resolve a phrase to a canonical term
 
 ```bash
 open-data-products odpv-resolve "reusable data asset" --json
@@ -28,7 +37,7 @@ open-data-products odpv-resolve "reusable data asset" --json
 
 The resolver can match aliases and plain-language text to a standard term.
 
-## 4. Explain one term
+## 5. Explain one term
 
 ```bash
 open-data-products odpv-explain DataProduct --json
@@ -36,7 +45,7 @@ open-data-products odpv-explain DataProduct --json
 
 This returns the canonical vocabulary packet for `DataProduct`.
 
-## 5. Check a relationship
+## 6. Check a relationship
 
 ```bash
 open-data-products odpv-relationship DataProduct supports UseCase --json

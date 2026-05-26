@@ -1,0 +1,2 @@
+Signal: security queue surge risk rises when passenger volume exceeds planned
+checkpoint capacity and estimated wait time crosses the operating threshold.

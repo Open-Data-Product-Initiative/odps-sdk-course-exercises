@@ -3,15 +3,18 @@
 This guide shows how to use an online LLM provider through a config file. The
 same pattern works for OpenAI-compatible providers and Claude when configured.
 
-## 1. Create a lesson folder
+## 1. Open the guide folder and prepare output
 
 ```bash
-mkdir -p odp-course/06-online-provider/source_docs
-mkdir -p odp-course/06-online-provider/fragments
-cd odp-course/06-online-provider
+cd guides/06-llm-use-online-provider
+mkdir -p fragments
 ```
 
-## 2. Create a generation config
+This folder already contains `generation.config.yaml` and
+`source_docs/passenger-flow-product.md`.
+
+If you want to create the config yourself, replace `generation.config.yaml`
+with:
 
 ```bash
 cat > generation.config.yaml <<'YAML'
@@ -53,7 +56,10 @@ export ANTHROPIC_API_KEY="your-api-key"
 
 Do not store API keys in YAML files.
 
-## 4. Add a source file
+## 4. Review or recreate the source file
+
+If you want to create the source file yourself, replace
+`source_docs/passenger-flow-product.md` with:
 
 ```bash
 cat > source_docs/passenger-flow-product.md <<'MD'

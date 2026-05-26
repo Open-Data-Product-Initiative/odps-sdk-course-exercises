@@ -8,19 +8,22 @@ This guide shows the complete LLM-assisted flow:
 4. Build an ODPC catalog HTML page.
 5. Generate an ODPG graph explorer HTML page.
 
-## 1. Prepare folders
+## 1. Open the guide folder and prepare output
 
 ```bash
-mkdir -p odp-course/08-full-cycle/source_docs
-mkdir -p odp-course/08-full-cycle/fragments
-mkdir -p odp-course/08-full-cycle/output
-cd odp-course/08-full-cycle
+cd guides/08-llm-full-cycle-catalog-and-graph
+mkdir -p fragments output
 ```
 
 ## 2. Add source documents
 
 Use a mix of Markdown and text files. Descriptive filenames help the model
 understand the intended artifact type.
+
+This folder already contains the prepared source documents under
+`source_docs/`.
+
+If you want to create them yourself, replace the files with:
 
 ```bash
 cat > source_docs/airport-operations-product.md <<'MD'
