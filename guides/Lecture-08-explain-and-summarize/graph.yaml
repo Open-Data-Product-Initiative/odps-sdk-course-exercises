@@ -1,0 +1,20 @@
+schema: https://opendataproducts.org/odpg-v1.0/schema/odpg.yaml
+version: "1.0"
+kind: Graph
+graph:
+  metadata:
+    id: GRAPH-AVIATION-001
+    name:
+      en: Aviation Data Product Value Graph
+    description:
+      en: Graph describing how aviation data products, use cases, policies,
+          agents, opportunities, and business objectives are connected.
+    domain:
+      en: Aviation
+    purpose:
+      en: Support portfolio analysis, value mapping, governance review,
+          and AI-assisted reasoning.
+    status: draft
+    visibility: public
+  nodes: []
+  edges: []
