@@ -119,4 +119,4 @@ the course exercises.
 
 ## Next Lesson
 
-Continue to [Guide 1: Validate, Explain, and Summarize an ODPS Product](../Lecture-07-validate-product/).
+Continue to [Lecture 8: Validate, Explain, and Summarize an ODPS Product](../Lecture-08-validate-product/).

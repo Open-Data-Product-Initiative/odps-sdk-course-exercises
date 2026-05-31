@@ -30,7 +30,7 @@ Qwen 2.5 or a configured online provider.
 
 ## Non-LLM Guides
 
-1. [Validate, explain, and summarize an ODPS product](guides/Lecture-07-validate-product/)
+1. [Validate, explain, and summarize an ODPS product](guides/Lecture-08-validate-product/)
 2. [Use the ODPV vocabulary helpers](guides/Lecture-09-use-vocabulary-helpers/)
 3. [Convert GraphML to ODPG and open an explorer](guides/Lecture-10-convert-graph-to-odpg/)
 
