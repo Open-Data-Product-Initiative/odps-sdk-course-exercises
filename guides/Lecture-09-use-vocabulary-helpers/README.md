@@ -1,4 +1,4 @@
-# Guide 3: Use the ODPV Vocabulary Helpers
+# Guide 2: Use the ODPV Vocabulary Helpers
 
 The SDK includes Open Data Product Vocabulary helpers. These are useful when
 you want to use standard terms consistently.
@@ -6,7 +6,7 @@ you want to use standard terms consistently.
 ## 1. Open the guide folder
 
 ```bash
-cd guides/03-use-vocabulary-helpers
+cd guides/Lecture-09-use-vocabulary-helpers
 ```
 
 This guide does not need input files. The commands read the vocabulary bundled
@@ -62,4 +62,4 @@ target types.
 
 ## Next Lesson
 
-Continue to [Guide 4: Convert GraphML to ODPG and Open an Explorer](../04-convert-graph-to-odpg/).
+Continue to [Guide 3: Convert GraphML to ODPG and Open an Explorer](../Lecture-10-convert-graph-to-odpg/).

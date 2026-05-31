@@ -1,4 +1,4 @@
-# Guide 5: Generate One Signal Fragment with Ollama
+# Guide 4: Generate One Signal Fragment with Ollama
 
 This is the smallest LLM workflow: give the SDK one text file and ask it to
 generate one ODPC signal fragment.
@@ -15,7 +15,7 @@ Keep Ollama running locally.
 ## 2. Open the guide folder and prepare output
 
 ```bash
-cd guides/05-llm-generate-one-signal
+cd guides/Lecture-11-llm-generate-one-signal
 mkdir -p fragments
 ```
 
@@ -63,4 +63,4 @@ signal_<generated-id>.yaml
 
 ## Next Lesson
 
-Continue to [Guide 6: Generate One Artifact with an Online Provider](../06-llm-use-online-provider/).
+Continue to [Guide 5: Generate One Artifact with an Online Provider](../Lecture-12-llm-use-online-provider/).

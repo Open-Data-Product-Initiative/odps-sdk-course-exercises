@@ -1,4 +1,4 @@
-# Guide 6: Generate One Artifact with an Online Provider
+# Guide 5: Generate One Artifact with an Online Provider
 
 This guide shows how to use an online LLM provider through a config file. The
 same pattern works for OpenAI-compatible providers and Claude when configured.
@@ -6,7 +6,7 @@ same pattern works for OpenAI-compatible providers and Claude when configured.
 ## 1. Open the guide folder and prepare output
 
 ```bash
-cd guides/06-llm-use-online-provider
+cd guides/Lecture-12-llm-use-online-provider
 mkdir -p fragments
 ```
 
@@ -89,4 +89,4 @@ open-data-products generate \
 
 ## Next Lesson
 
-Continue to [Guide 7: Generate a Full Fragment Set from Source Documents](../07-llm-generate-fragment-set/).
+Continue to [Guide 6: Generate a Full Fragment Set from Source Documents](../Lecture-13-llm-generate-fragment-set/).

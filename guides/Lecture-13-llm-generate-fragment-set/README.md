@@ -1,4 +1,4 @@
-# Guide 7: Generate a Full Fragment Set from Source Documents
+# Guide 6: Generate a Full Fragment Set from Source Documents
 
 This guide uses local Ollama/Qwen 2.5 to generate multiple ODPC fragments and
 one ODPG graph from a folder of source documents.
@@ -6,7 +6,7 @@ one ODPG graph from a folder of source documents.
 ## 1. Open the guide folder and prepare output
 
 ```bash
-cd guides/07-llm-generate-fragment-set
+cd guides/Lecture-13-llm-generate-fragment-set
 mkdir -p fragments
 ```
 
@@ -82,4 +82,4 @@ open-data-products validate fragments/odpg_graph.yaml --json
 
 ## Next Lesson
 
-Continue to [Guide 8: Full Cycle from Source Docs to Catalog and Graph HTML](../08-llm-full-cycle-catalog-and-graph/).
+Continue to [Guide 7: Full Cycle from Source Docs to Catalog and Graph HTML](../Lecture-14-llm-full-cycle-catalog-and-graph/).

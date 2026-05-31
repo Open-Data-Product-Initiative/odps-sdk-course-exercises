@@ -1,4 +1,4 @@
-# Guide 4: Convert GraphML to ODPG and Open an Explorer
+# Guide 3: Convert GraphML to ODPG and Open an Explorer
 
 This guide converts a small external GraphML graph into ODPG YAML, validates
 the result, and creates a standalone HTML graph explorer.
@@ -6,7 +6,7 @@ the result, and creates a standalone HTML graph explorer.
 ## 1. Open the guide folder
 
 ```bash
-cd guides/04-convert-graph-to-odpg
+cd guides/Lecture-10-convert-graph-to-odpg
 ```
 
 This folder already contains `graph.graphml`, so you can run the conversion
@@ -65,4 +65,4 @@ Open `graph-explorer.html` in a browser.
 
 ## Next Lesson
 
-Continue to [Guide 5: Generate One Signal Fragment with Ollama](../05-llm-generate-one-signal/).
+Continue to [Guide 4: Generate One Signal Fragment with Ollama](../Lecture-11-llm-generate-one-signal/).
