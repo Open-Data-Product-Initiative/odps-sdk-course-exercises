@@ -1,3 +1,0 @@
-Signal: turnaround delay risk rises when inbound arrival is late, unloading has
-not started, cleaning crew is missing, fueling is delayed, or a gate conflict
-exists.

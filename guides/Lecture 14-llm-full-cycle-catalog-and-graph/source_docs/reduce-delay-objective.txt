@@ -1,3 +1,0 @@
-Objective: reduce average departure delay minutes and improve recovered flight
-count during peak operating windows. Success is measured by delay minutes,
-recovery actions completed, and passenger connection success rate.
