@@ -1,0 +1,4 @@
+Signal: churn risk rises when product usage drops, support tickets increase,
+and renewal activity slows. The signal is consumed by the Customer Analytics
+Product and monitored by the Customer Retention use case. It measures the Reduce
+Preventable Churn objective.

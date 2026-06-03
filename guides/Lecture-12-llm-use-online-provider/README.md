@@ -10,8 +10,8 @@ cd guides/Lecture-12-llm-use-online-provider
 mkdir -p fragments
 ```
 
-This folder already contains `generation.config.yaml` and
-`source_docs/passenger-flow-product.md`.
+This folder already contains `generation.config.yaml` and product source
+documents under `source_docs/`.
 
 If you want to create the config yourself, replace `generation.config.yaml`
 with:
@@ -72,7 +72,7 @@ affects departure reliability.
 MD
 ```
 
-## 5. Generate one product fragment
+## 5. Generate product fragments
 
 ```bash
 open-data-products generate \
@@ -81,11 +81,16 @@ open-data-products generate \
   --json
 ```
 
+With `--kind product`, every `.md` and `.txt` file in the input folder is
+processed with the product prompt. Each generated product reference is written
+as its own `product_reference_*.yaml` file under `fragments/`.
+
 ## What You Learned
 
 - Provider settings belong in `generation.config.yaml`.
 - Secrets stay in environment variables.
-- `--kind product` generates one product reference fragment.
+- `--kind product` generates product reference fragments from product source
+  documents.
 
 ## Next Lesson
 

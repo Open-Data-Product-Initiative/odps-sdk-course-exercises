@@ -1,0 +1,5 @@
+Signal: escalation pressure rises when ticket backlog grows, first response time
+slips, customer sentiment drops, or priority accounts wait too long. The signal
+is consumed by the Support Operations Product and monitored by the Support
+Escalation Management use case. It measures the Improve Support Resolution
+objective.
