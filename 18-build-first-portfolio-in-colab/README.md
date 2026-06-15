@@ -15,13 +15,36 @@ In a new Colab notebook, install the SDK:
 If you use Claude, store the API key in the notebook environment:
 
 ```python
+from google.colab import userdata
 import os
-os.environ["ANTHROPIC_API_KEY"] = "your-api-key"
+
+os.environ["ANTHROPIC_API_KEY"] = userdata.get("ANTHROPIC_API_KEY")
 ```
 
 Do not commit or share notebooks that contain real API keys.
 
-## 2. Create Source Lanes
+## 2. Create A Workspace Folder
+
+Keep the portfolio section in one working folder. In Colab, this keeps source
+files, generated YAML, HTML, localized pages, and version history together
+instead of scattering files through downloads:
+
+```python
+!mkdir -p /content/odp-portfolio-workspace
+%cd /content/odp-portfolio-workspace
+```
+
+For local work, create the same kind of folder and run the remaining commands
+from inside it:
+
+```bash
+mkdir -p odp-portfolio-workspace
+cd odp-portfolio-workspace
+```
+
+The rest of Lectures 18-22 assume your current folder is this workspace.
+
+## 3. Create Source Lanes
 
 Create source folders in the notebook runtime:
 
@@ -29,9 +52,11 @@ Create source folders in the notebook runtime:
 !mkdir -p source_docs/objectives source_docs/use-cases source_docs/signals source_docs/products
 ```
 
-Add one source file to each lane:
+Add one source file to each lane. In Colab, put `%%bash` at the top of the
+cell so the whole block runs as shell commands inside the current workspace:
 
 ```bash
+%%bash
 cat > source_docs/objectives/reduce-churn-objective.md <<'MD'
 # Reduce Preventable Churn
 
@@ -69,7 +94,7 @@ MD
 These four files match the input map from Lecture 17: objectives, use cases,
 signals, and products.
 
-## 3. Run Portfolio Build
+## 4. Run Portfolio Build
 
 ```python
 !open-data-products portfolio build \
@@ -83,7 +108,7 @@ signals, and products.
   --model claude-sonnet-4-5
 ```
 
-## 4. Inspect Generated Folders
+## 5. Inspect Generated Folders
 
 ```python
 !find portfolio -maxdepth 3 -type f | sort
@@ -98,12 +123,28 @@ Look for:
 - `portfolio/odpg/graph.yaml`
 - `portfolio/odps/products/`
 
-## 5. Open The HTML Output
+## 6. Open The HTML Output
 
-Download `portfolio/index.html` from Colab and open it in a browser. The page
-contains tabs for overview, artifact types, products, graph, and about content.
+Open `portfolio/index.html` from the workspace. In Colab, use the file browser
+on the left side and open the file under:
 
-## 6. Review Catalog And Graph Files
+```text
+/content/odp-portfolio-workspace/portfolio/index.html
+```
+
+Avoid downloading only `index.html` by itself. Later lessons add localized
+pages and translation files beside it, so the whole `portfolio/` folder should
+stay together. If you need to move the result to your computer, zip the
+portfolio folder:
+
+```python
+!zip -r portfolio-review.zip portfolio
+```
+
+The page contains tabs for overview, artifact types, products, graph, and about
+content.
+
+## 7. Review Catalog And Graph Files
 
 ```python
 !open-data-products portfolio explain portfolio/

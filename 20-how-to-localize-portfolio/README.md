@@ -6,18 +6,33 @@ stakeholders. It does not change the canonical ODPC, ODPS, or ODPG YAML files.
 Use this lesson after you have a working portfolio workspace from the previous
 lessons.
 
+Continue from the same workspace folder you created in Lecture 18:
+
+```text
+/content/odp-portfolio-workspace
+```
+
+Localization writes files into `portfolio/` inside that workspace. Do not
+download individual HTML files before running localization; keep `index.html`,
+localized pages, and `portfolio-i18n.yaml` together.
+
+Localization applies to the active portfolio page. It does not go back and
+translate older version snapshots under `portfolio/versions/`. If you need a
+translated record of a specific version, run localization while that version is
+current and preserve the zipped portfolio package.
+
 ## 1. Start From A Rendered Portfolio
 
 You need a portfolio workspace with a current `index.html`:
 
 ```bash
-ls portfolio/index.html
+!ls portfolio/index.html
 ```
 
 If the page does not exist yet, render it from the current YAML artifacts:
 
 ```bash
-open-data-products portfolio render portfolio/
+!open-data-products portfolio render portfolio/
 ```
 
 ## 2. Choose Target Languages
@@ -40,7 +55,7 @@ are useful for Nordic stakeholder review examples.
 Use a configured LLM provider to translate the visible HTML strings:
 
 ```bash
-open-data-products portfolio localize portfolio/ \
+!open-data-products portfolio localize portfolio/ \
   --languages "fi,sv" \
   --provider claude \
   --model claude-sonnet-4-5
@@ -54,9 +69,9 @@ and writes localized pages beside the main `index.html`.
 Check that the localized pages and translation file exist:
 
 ```bash
-ls portfolio/index.fi.html
-ls portfolio/index.sv.html
-ls portfolio/portfolio-i18n.yaml
+!ls portfolio/index.fi.html
+!ls portfolio/index.sv.html
+!ls portfolio/portfolio-i18n.yaml
 ```
 
 The common outputs are:
@@ -73,16 +88,23 @@ canonical YAML artifacts.
 
 ## 5. Open The Localized Pages
 
-Open the localized HTML files in a browser:
+Open the localized HTML files from the same workspace:
 
 ```text
-portfolio/index.fi.html
-portfolio/index.sv.html
+/content/odp-portfolio-workspace/portfolio/index.fi.html
+/content/odp-portfolio-workspace/portfolio/index.sv.html
 ```
 
 Review the overview, artifact panels, product cards, graph labels, and about
 section. The goal is not only translation quality; reviewers should confirm
 that the page still works as a portfolio review artifact.
+
+If you want to move the localized review package to your computer, zip the
+whole portfolio folder instead of downloading one HTML file at a time:
+
+```bash
+!zip -r portfolio-localized-review.zip portfolio
+```
 
 ## 6. Keep YAML As The Source Of Truth
 
@@ -104,7 +126,7 @@ those YAML files as the source of truth.
 If localization takes too long with a local model, try fewer languages first:
 
 ```bash
-open-data-products portfolio localize portfolio/ \
+!open-data-products portfolio localize portfolio/ \
   --languages "fi" \
   --provider ollama \
   --model qwen2.5
@@ -117,7 +139,7 @@ breaks the command.
 If automation should fail on validation issues, add `--strict-validation`:
 
 ```bash
-open-data-products portfolio localize portfolio/ \
+!open-data-products portfolio localize portfolio/ \
   --languages "fi,sv" \
   --provider claude \
   --model claude-sonnet-4-5 \
