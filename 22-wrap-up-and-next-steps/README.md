@@ -1,4 +1,4 @@
-# Lecture 21: Wrap-up and Next Steps
+# Lecture 22: Wrap-up and Next Steps
 
 You have completed the course path from SDK basics to a connected, reviewable,
 agent-ready data product portfolio workflow.
@@ -61,10 +61,10 @@ HTML pages without changing the canonical YAML artifacts.
 Use these references when you want to go deeper:
 
 - [SDK README](../../../README.md)
-- [SDK API reference](../../../docs/API.md)
-- [SDK command guide](../../../docs/commands.md)
-- [Generation guide](../../../docs/generation.md)
-- [Portfolio development notes](../../../docs/portfolio-development.md)
+- [SDK API reference](../../../docs/user/API.md)
+- [SDK command guide](../../../docs/user/commands.md)
+- [Generation guide](../../../docs/user/generation.md)
+- [Portfolio development notes](../../../docs/development/portfolio.md)
 - [ODPS product specification](https://opendataproducts.org/v4.1/)
 - [ODPC catalog specification](https://opendataproducts.org/odpc-v1.0/)
 - [ODPG graph specification](https://opendataproducts.org/odpg-v1.0/)

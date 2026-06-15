@@ -1,4 +1,4 @@
-# Lecture 20: Final Review: Human View and Agent-Ready YAML
+# Lecture 21: Final Review: Human View and Agent-Ready YAML
 
 The portfolio workflow serves two audiences. The HTML view is for humans. The
 YAML files are for AI agents, automation, validation, and long-term version
@@ -55,4 +55,4 @@ when automation should fail on schema errors.
 
 ## Next Lesson
 
-Continue to [Lecture 21: Wrap-up and next steps](../21-wrap-up-and-next-steps/).
+Continue to [Lecture 22: Wrap-up and next steps](../22-wrap-up-and-next-steps/).
