@@ -9,7 +9,7 @@ catalog and graph files.
 In a new Colab notebook, install the SDK:
 
 ```python
-!python -m pip install --upgrade open-data-products
+!python -m pip install --upgrade open-data-products==0.2.3
 ```
 
 If you use Claude, store the API key in the notebook environment:
