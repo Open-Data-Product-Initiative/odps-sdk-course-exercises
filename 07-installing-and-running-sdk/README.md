@@ -1,28 +1,40 @@
 # Lecture 7: Installing and Running the SDK
 
-This lesson gets a clean SDK workspace ready and runs the first simple command.
-If Python or the SDK is not installed yet, complete
-[Guide 00: Set Up Python](../00-setup-python/) first.
+This lesson gets a clean local SDK workspace ready, creates a Python virtual
+environment, installs the SDK, and runs the first simple command.
+
+This is the local terminal setup path. The Colab workflow is handled separately
+in the course notebooks.
 
 ## 1. Create The Course Workspace
 
 ```bash
-mkdir -p odps-sdk-guides
-cd odps-sdk-guides
+mkdir odps-sdk-course
+cd odps-sdk-course
+python3 -m venv .venv-sdk
+source .venv-sdk/bin/activate
 ```
 
-Create the folders used across later lessons:
+On Windows PowerShell, activate the environment with:
 
 ```bash
-mkdir -p source_docs
-mkdir -p fragments
-mkdir -p catalogs
-mkdir -p graphs
-mkdir -p portfolio
-mkdir -p reports
+.venv-sdk\Scripts\Activate.ps1
 ```
 
-## 2. Check The SDK Command
+After activation, your terminal prompt should show that `.venv-sdk` is active.
+
+## 2. Install The SDK
+
+Install the SDK inside the virtual environment:
+
+```bash
+python -m pip install --upgrade pip
+python -m pip install --upgrade open-data-products
+```
+
+Using `python -m pip` keeps the install tied to the active virtual environment.
+
+## 3. Check The SDK Command
 
 ```bash
 open-data-products --help
@@ -31,7 +43,13 @@ open-data-products --help
 You should see the main command groups for validation, generation, ODPC, ODPG,
 ODPV, and portfolio workflows.
 
-## 3. Run A Simple JSON Command
+You can also check the installed version:
+
+```bash
+open-data-products --version
+```
+
+## 4. Run A Simple JSON Command
 
 ```bash
 open-data-products manifest --json
@@ -39,7 +57,7 @@ open-data-products manifest --json
 
 The manifest output is a machine-readable description of the SDK surface.
 
-## 4. Keep The Folder Shape
+## 5. Keep The Folder Shape
 
 The rest of the course uses this practical structure:
 
@@ -55,8 +73,19 @@ reports/
 You can create a separate lesson folder later when you want to keep one
 exercise isolated.
 
+When you return to this course later, open the same folder and reactivate the
+virtual environment before running SDK commands:
+
+```bash
+cd odps-sdk-course
+source .venv-sdk/bin/activate
+```
+
 ## What You Learned
 
+- A virtual environment keeps the course install separate from other Python
+  projects.
+- The SDK package name is `open-data-products`.
 - The SDK command is `open-data-products`.
 - `--help` shows the available workflows.
 - `manifest --json` proves the package imports and the CLI can render
