@@ -141,7 +141,6 @@ HTML pages without changing the canonical YAML artifacts.
 
 Use these references when you want to go deeper:
 
-- [Portfolio development notes](../../../docs/development/portfolio.md)
 - [ODPS product specification](https://opendataproducts.org/v4.1/)
 - [ODPC catalog specification](https://opendataproducts.org/odpc-v1.0/)
 - [ODPG graph specification](https://opendataproducts.org/odpg-v1.0/)
