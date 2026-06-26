@@ -8,6 +8,9 @@ workflows for validating standards files, using vocabulary helpers, configuring
 LLM providers, generating data product artifacts, and building reviewable data
 product portfolio workspaces.
 
+The course is created by Dr. Jarkko Moilanen, igniter and maintainer of the
+Open Data Products Standards family and the Open Data Products SDK.
+
 For course details and enrollment, use this placeholder until the public Udemy
 link is added:
 
