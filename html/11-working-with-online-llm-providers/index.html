@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lecture 11: Working with Online LLM Providers | Open Data Products SDK Course</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <div class="site">
+    <aside class="sidebar">
+      <a class="brand" href="../index.html"><img src="../assets/cover.png" alt="Open Data Products SDK course cover"></a>
+      <div class="nav-title">Course Material</div>
+      <ul class="nav-list">
+<li><a href="../06-what-the-sdk-is/index.html">Lecture 6: What the Open Data Products SDK Is</a></li>
+<li><a href="../07-installing-and-running-sdk/index.html">Lecture 7: Installing and Running the SDK</a></li>
+<li><a href="../08-validating-and-explaining-standards-files/index.html">Lecture 8: Validating and Explaining Standards Files</a></li>
+<li><a href="../09-use-odpv-vocabulary-helpers/index.html">Lecture 9: Use the ODPV Vocabulary Helpers</a></li>
+<li><a href="../10-working-with-local-llms/index.html">Lecture 10: Working with Local LLMs</a></li>
+<li><a href="index.html" aria-current="page">Lecture 11: Working with Online LLM Providers</a></li>
+<li><a href="../12-generating-odps-data-products/index.html">Lecture 12: Generating ODPS Data Products from Business Requirements</a></li>
+<li><a href="../13-working-with-generation-and-fragments/index.html">Lecture 13: Working with Generation and Fragments</a></li>
+<li><a href="../14-working-with-odpg-graphs/index.html">Lecture 14: Working with ODPG Graphs</a></li>
+<li><a href="../15-working-with-odpc-catalogs/index.html">Lecture 15: Working with ODPC Catalogs</a></li>
+<li><a href="../16-from-commands-to-portfolio-builder/index.html">Lecture 16: From Commands to Portfolio Builder</a></li>
+<li><a href="../17-what-the-portfolio-builder-creates/index.html">Lecture 17: What the Portfolio Builder Creates</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/index.html">Lecture 18: Build the First Portfolio in Colab</a></li>
+<li><a href="../19-update-portfolio-and-review-version-history/index.html">Lecture 19: Update the Portfolio and Review Version History</a></li>
+<li><a href="../20-how-to-localize-portfolio/index.html">Lecture 20: How to Localize a Portfolio</a></li>
+<li><a href="../21-final-review-human-view-and-agent-ready-yaml/index.html">Lecture 21: Final Review: Human View and Agent-Ready YAML</a></li>
+<li><a href="../22-wrap-up-and-next-steps/index.html">Lecture 22: Wrap-up and Next Steps</a></li>
+<li><a href="../index.html">Open Data Products SDK Course Exercises</a></li>
+<li><a href="source_docs/passenger-flow-product.html">Passenger Flow Data Product</a></li>
+<li><a href="../12-generating-odps-data-products/source_docs/partner-api-product-brief.html">Partner Inventory Availability API</a></li>
+<li><a href="../12-generating-odps-data-products/source_docs/support-operations-email-thread.html">Email thread: Support Operations Performance Product</a></li>
+<li><a href="../13-working-with-generation-and-fragments/source_docs/products/customer-analytics-product.html">Customer Analytics Product</a></li>
+<li><a href="../13-working-with-generation-and-fragments/source_docs/use-cases/customer-retention-use-case.html">Customer Retention</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/source_docs/objectives/reduce-churn-objective.html">Reduce Preventable Churn</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/source_docs/products/customer-health-product.html">Customer Health Signals Product</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/source_docs/use-cases/retention-risk-workflow.html">Retention Risk Workflow</a></li>
+      </ul>
+    </aside>
+    <main class="content-wrap">
+      <article class="content">
+        <div class="breadcrumbs"><a href="../index.html">Course home</a></div>
+<h1>Lecture 11: Working with Online LLM Providers</h1>
+<p>The SDK supports multiple online providers through config. API keys stay in environment variables, and the selected provider can change without rewriting the whole workflow.</p>
+<h2>1. Create a lesson folder</h2>
+<pre><code class="language-bash">mkdir -p odps-sdk-guides/11-online-provider/source_docs
+mkdir -p odps-sdk-guides/11-online-provider/fragments
+cd odps-sdk-guides/11-online-provider</code></pre>
+<h2>2. Create a generation config</h2>
+<pre><code class="language-bash">cat &gt; generation.config.yaml &lt;&lt;&#x27;YAML&#x27;
+provider: openai
+model: gpt-4.1-mini
+input: source_docs/
+output: fragments/
+
+providers:
+  openai:
+    type: openai
+    model: gpt-4.1-mini
+    baseUrl: https://api.openai.com/v1
+    apiKeyEnv: OPENAI_API_KEY
+
+  claude:
+    type: anthropic
+    model: claude-sonnet-4-5
+    baseUrl: https://api.anthropic.com/v1
+    apiKeyEnv: ANTHROPIC_API_KEY
+    version: &quot;2023-06-01&quot;
+    maxTokens: 4096
+YAML</code></pre>
+<h2>3. Export the selected provider API key</h2>
+<p>For OpenAI:</p>
+<pre><code class="language-bash">export OPENAI_API_KEY=&quot;your-api-key&quot;</code></pre>
+<p>For Claude, change <code>provider: claude</code> in the config and export:</p>
+<pre><code class="language-bash">export ANTHROPIC_API_KEY=&quot;your-api-key&quot;</code></pre>
+<p>Do not store API keys in YAML files.</p>
+<h2>4. Add a source file</h2>
+<pre><code class="language-bash">cat &gt; source_docs/passenger-flow-product.md &lt;&lt;&#x27;MD&#x27;
+# Passenger Flow Data Product
+
+Airport teams need a reusable data product that combines security queue wait
+time, passenger volume, boarding gate allocation, and baggage belt assignment.
+The product helps terminal operations teams identify congestion before it
+affects departure reliability.
+MD</code></pre>
+<h2>5. Generate one product fragment</h2>
+<pre><code class="language-bash">open-data-products generate \
+  --config generation.config.yaml \
+  --kind product-reference</code></pre>
+<p>The default output is meant for humans. Add <code>--json</code> when a script or agent needs a structured generation report.</p>
+<h2>What You Learned</h2>
+<ul>
+<li>Provider settings belong in <code>generation.config.yaml</code>.</li>
+<li>Secrets stay in environment variables.</li>
+<li>Provider defaults can be changed without rewriting the commands.</li>
+<li>You can add more vendor options to the config when they use a supported provider type.</li>
+<li><code>--kind product-reference</code> generates one ODPC product reference fragment.</li>
+<li><code>--kind odps-product</code> generates one full ODPS product YAML document.</li>
+<li><code>--profile complete-draft</code> and <code>--include-components</code> can draft optional ODPS product components for review.</li>
+</ul>
+<h2>Next Lesson</h2>
+<p>Continue to <a href="../12-generating-odps-data-products/">Lecture 12: Generating ODPS data products from business requirements</a>.</p>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

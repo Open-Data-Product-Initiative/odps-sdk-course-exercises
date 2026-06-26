@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lecture 20: How to Localize a Portfolio | Open Data Products SDK Course</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <div class="site">
+    <aside class="sidebar">
+      <a class="brand" href="../index.html"><img src="../assets/cover.png" alt="Open Data Products SDK course cover"></a>
+      <div class="nav-title">Course Material</div>
+      <ul class="nav-list">
+<li><a href="../06-what-the-sdk-is/index.html">Lecture 6: What the Open Data Products SDK Is</a></li>
+<li><a href="../07-installing-and-running-sdk/index.html">Lecture 7: Installing and Running the SDK</a></li>
+<li><a href="../08-validating-and-explaining-standards-files/index.html">Lecture 8: Validating and Explaining Standards Files</a></li>
+<li><a href="../09-use-odpv-vocabulary-helpers/index.html">Lecture 9: Use the ODPV Vocabulary Helpers</a></li>
+<li><a href="../10-working-with-local-llms/index.html">Lecture 10: Working with Local LLMs</a></li>
+<li><a href="../11-working-with-online-llm-providers/index.html">Lecture 11: Working with Online LLM Providers</a></li>
+<li><a href="../12-generating-odps-data-products/index.html">Lecture 12: Generating ODPS Data Products from Business Requirements</a></li>
+<li><a href="../13-working-with-generation-and-fragments/index.html">Lecture 13: Working with Generation and Fragments</a></li>
+<li><a href="../14-working-with-odpg-graphs/index.html">Lecture 14: Working with ODPG Graphs</a></li>
+<li><a href="../15-working-with-odpc-catalogs/index.html">Lecture 15: Working with ODPC Catalogs</a></li>
+<li><a href="../16-from-commands-to-portfolio-builder/index.html">Lecture 16: From Commands to Portfolio Builder</a></li>
+<li><a href="../17-what-the-portfolio-builder-creates/index.html">Lecture 17: What the Portfolio Builder Creates</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/index.html">Lecture 18: Build the First Portfolio in Colab</a></li>
+<li><a href="../19-update-portfolio-and-review-version-history/index.html">Lecture 19: Update the Portfolio and Review Version History</a></li>
+<li><a href="index.html" aria-current="page">Lecture 20: How to Localize a Portfolio</a></li>
+<li><a href="../21-final-review-human-view-and-agent-ready-yaml/index.html">Lecture 21: Final Review: Human View and Agent-Ready YAML</a></li>
+<li><a href="../22-wrap-up-and-next-steps/index.html">Lecture 22: Wrap-up and Next Steps</a></li>
+<li><a href="../index.html">Open Data Products SDK Course Exercises</a></li>
+<li><a href="../11-working-with-online-llm-providers/source_docs/passenger-flow-product.html">Passenger Flow Data Product</a></li>
+<li><a href="../12-generating-odps-data-products/source_docs/partner-api-product-brief.html">Partner Inventory Availability API</a></li>
+<li><a href="../12-generating-odps-data-products/source_docs/support-operations-email-thread.html">Email thread: Support Operations Performance Product</a></li>
+<li><a href="../13-working-with-generation-and-fragments/source_docs/products/customer-analytics-product.html">Customer Analytics Product</a></li>
+<li><a href="../13-working-with-generation-and-fragments/source_docs/use-cases/customer-retention-use-case.html">Customer Retention</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/source_docs/objectives/reduce-churn-objective.html">Reduce Preventable Churn</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/source_docs/products/customer-health-product.html">Customer Health Signals Product</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/source_docs/use-cases/retention-risk-workflow.html">Retention Risk Workflow</a></li>
+      </ul>
+    </aside>
+    <main class="content-wrap">
+      <article class="content">
+        <div class="breadcrumbs"><a href="../index.html">Course home</a></div>
+<h1>Lecture 20: How to Localize a Portfolio</h1>
+<p>Portfolio localization creates translated static HTML review pages for regional stakeholders. It does not change the canonical ODPC, ODPS, or ODPG YAML files.</p>
+<p>Use this lesson after you have a working portfolio workspace from the previous lessons.</p>
+<p>Continue from the same workspace folder you created in Lecture 18:</p>
+<pre><code class="language-text">/content/odp-portfolio-workspace</code></pre>
+<p>Localization writes files into <code>portfolio/</code> inside that workspace. Do not download individual HTML files before running localization; keep <code>index.html</code>, localized pages, and <code>portfolio-i18n.yaml</code> together.</p>
+<p>Localization applies to the active portfolio page. It does not go back and translate older version snapshots under <code>portfolio/versions/</code>. If you need a translated record of a specific version, run localization while that version is current and preserve the zipped portfolio package.</p>
+<h2>1. Start From A Rendered Portfolio</h2>
+<p>You need a portfolio workspace with a current <code>index.html</code>:</p>
+<pre><code class="language-bash">!ls portfolio/index.html</code></pre>
+<p>If the page does not exist yet, render it from the current YAML artifacts:</p>
+<pre><code class="language-bash">!open-data-products portfolio render portfolio/</code></pre>
+<h2>2. Choose Target Languages</h2>
+<p><code>portfolio localize</code> accepts BCP 47 language tags. Start with one or two languages while learning the workflow:</p>
+<pre><code class="language-text">fi   Finnish
+sv   Swedish
+ar   Arabic
+vi   Vietnamese</code></pre>
+<p>Arabic is useful for checking right-to-left page rendering. Finnish and Swedish are useful for Nordic stakeholder review examples.</p>
+<h2>3. Run Localization</h2>
+<p>Use a configured LLM provider to translate the visible HTML strings:</p>
+<pre><code class="language-bash">!open-data-products portfolio localize portfolio/ \
+  --languages &quot;fi,sv&quot; \
+  --provider claude \
+  --model claude-sonnet-4-5</code></pre>
+<p>The command reads the existing portfolio HTML, translates human-facing text, and writes localized pages beside the main <code>index.html</code>.</p>
+<h2>4. Review The Outputs</h2>
+<p>Check that the localized pages and translation file exist:</p>
+<pre><code class="language-bash">!ls portfolio/index.fi.html
+!ls portfolio/index.sv.html
+!ls portfolio/portfolio-i18n.yaml</code></pre>
+<p>The common outputs are:</p>
+<ul>
+<li><code>portfolio/index.fi.html</code></li>
+<li><code>portfolio/index.sv.html</code></li>
+<li><code>portfolio/index.ar.html</code></li>
+<li><code>portfolio/index.vi.html</code></li>
+<li><code>portfolio/portfolio-i18n.yaml</code></li>
+</ul>
+<p><code>portfolio-i18n.yaml</code> stores the translated strings used to render localized HTML pages. It is generated from the portfolio view, not from editing the canonical YAML artifacts.</p>
+<h2>5. Open The Localized Pages</h2>
+<p>Open the localized HTML files from the same workspace:</p>
+<pre><code class="language-text">/content/odp-portfolio-workspace/portfolio/index.fi.html
+/content/odp-portfolio-workspace/portfolio/index.sv.html</code></pre>
+<p>Review the overview, artifact panels, product cards, graph labels, and about section. The goal is not only translation quality; reviewers should confirm that the page still works as a portfolio review artifact.</p>
+<p>If you want to move the localized review package to your computer, zip the whole portfolio folder instead of downloading one HTML file at a time:</p>
+<pre><code class="language-bash">!zip -r portfolio-localized-review.zip portfolio</code></pre>
+<h2>6. Keep YAML As The Source Of Truth</h2>
+<p>Localization is for human-facing review pages. The canonical files remain:</p>
+<pre><code class="language-text">portfolio/portfolio.yaml
+portfolio/odpc/catalog.yaml
+portfolio/odpc/fragments/*.yaml
+portfolio/odpg/graph.yaml
+portfolio/odps/products/*.yaml</code></pre>
+<p>Agents, scripts, validation commands, and version control should keep using those YAML files as the source of truth.</p>
+<h2>7. Troubleshooting</h2>
+<p>If localization takes too long with a local model, try fewer languages first:</p>
+<pre><code class="language-bash">!open-data-products portfolio localize portfolio/ \
+  --languages &quot;fi&quot; \
+  --provider ollama \
+  --model qwen2.5</code></pre>
+<p>If a command pasted into <code>zsh</code> behaves strangely, check that every line continuation backslash is the final character on its line. A space after <code>\</code> breaks the command.</p>
+<p>If automation should fail on validation issues, add <code>--strict-validation</code>:</p>
+<pre><code class="language-bash">!open-data-products portfolio localize portfolio/ \
+  --languages &quot;fi,sv&quot; \
+  --provider claude \
+  --model claude-sonnet-4-5 \
+  --strict-validation</code></pre>
+<h2>What You Learned</h2>
+<ul>
+<li><code>portfolio localize</code> creates translated static HTML review pages.</li>
+<li>Localization leaves ODPC, ODPS, and ODPG YAML artifacts unchanged.</li>
+<li><code>portfolio-i18n.yaml</code> stores translated page strings.</li>
+<li>BCP 47 tags such as <code>fi</code>, <code>sv</code>, <code>ar</code>, and <code>vi</code> select target languages.</li>
+<li>Local models can work, but hosted providers are often better for longer multilingual review pages.</li>
+</ul>
+<h2>Next Lesson</h2>
+<p>Continue to <a href="../21-final-review-human-view-and-agent-ready-yaml/">Lecture 21: Final review: human view and agent-ready YAML</a>.</p>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

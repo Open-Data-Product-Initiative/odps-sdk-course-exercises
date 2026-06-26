@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lecture 16: From Commands to Portfolio Builder | Open Data Products SDK Course</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <div class="site">
+    <aside class="sidebar">
+      <a class="brand" href="../index.html"><img src="../assets/cover.png" alt="Open Data Products SDK course cover"></a>
+      <div class="nav-title">Course Material</div>
+      <ul class="nav-list">
+<li><a href="../06-what-the-sdk-is/index.html">Lecture 6: What the Open Data Products SDK Is</a></li>
+<li><a href="../07-installing-and-running-sdk/index.html">Lecture 7: Installing and Running the SDK</a></li>
+<li><a href="../08-validating-and-explaining-standards-files/index.html">Lecture 8: Validating and Explaining Standards Files</a></li>
+<li><a href="../09-use-odpv-vocabulary-helpers/index.html">Lecture 9: Use the ODPV Vocabulary Helpers</a></li>
+<li><a href="../10-working-with-local-llms/index.html">Lecture 10: Working with Local LLMs</a></li>
+<li><a href="../11-working-with-online-llm-providers/index.html">Lecture 11: Working with Online LLM Providers</a></li>
+<li><a href="../12-generating-odps-data-products/index.html">Lecture 12: Generating ODPS Data Products from Business Requirements</a></li>
+<li><a href="../13-working-with-generation-and-fragments/index.html">Lecture 13: Working with Generation and Fragments</a></li>
+<li><a href="../14-working-with-odpg-graphs/index.html">Lecture 14: Working with ODPG Graphs</a></li>
+<li><a href="../15-working-with-odpc-catalogs/index.html">Lecture 15: Working with ODPC Catalogs</a></li>
+<li><a href="index.html" aria-current="page">Lecture 16: From Commands to Portfolio Builder</a></li>
+<li><a href="../17-what-the-portfolio-builder-creates/index.html">Lecture 17: What the Portfolio Builder Creates</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/index.html">Lecture 18: Build the First Portfolio in Colab</a></li>
+<li><a href="../19-update-portfolio-and-review-version-history/index.html">Lecture 19: Update the Portfolio and Review Version History</a></li>
+<li><a href="../20-how-to-localize-portfolio/index.html">Lecture 20: How to Localize a Portfolio</a></li>
+<li><a href="../21-final-review-human-view-and-agent-ready-yaml/index.html">Lecture 21: Final Review: Human View and Agent-Ready YAML</a></li>
+<li><a href="../22-wrap-up-and-next-steps/index.html">Lecture 22: Wrap-up and Next Steps</a></li>
+<li><a href="../index.html">Open Data Products SDK Course Exercises</a></li>
+<li><a href="../11-working-with-online-llm-providers/source_docs/passenger-flow-product.html">Passenger Flow Data Product</a></li>
+<li><a href="../12-generating-odps-data-products/source_docs/partner-api-product-brief.html">Partner Inventory Availability API</a></li>
+<li><a href="../12-generating-odps-data-products/source_docs/support-operations-email-thread.html">Email thread: Support Operations Performance Product</a></li>
+<li><a href="../13-working-with-generation-and-fragments/source_docs/products/customer-analytics-product.html">Customer Analytics Product</a></li>
+<li><a href="../13-working-with-generation-and-fragments/source_docs/use-cases/customer-retention-use-case.html">Customer Retention</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/source_docs/objectives/reduce-churn-objective.html">Reduce Preventable Churn</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/source_docs/products/customer-health-product.html">Customer Health Signals Product</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/source_docs/use-cases/retention-risk-workflow.html">Retention Risk Workflow</a></li>
+      </ul>
+    </aside>
+    <main class="content-wrap">
+      <article class="content">
+        <div class="breadcrumbs"><a href="../index.html">Course home</a></div>
+<h1>Lecture 16: From Commands to Portfolio Builder</h1>
+<p>You have already used fine-grained SDK capabilities: validation, explanation, vocabulary helpers, generation, fragments, graphs, and catalogs. The portfolio builder is the higher-level workflow that packages those parts into one guided business process.</p>
+<p>The shift matters because real portfolio work rarely starts as clean YAML. It often starts as higher-level intent, source material, customer transcripts, business notes, product briefs, and signals. The portfolio builder turns that material into a structured portfolio that is easier for business users to review, easier for technical teams to refresh, and easier for AI agents to reuse through machine-readable YAML artifacts.</p>
+<p>The builder does not replace the individual SDK commands. The isolated commands remain the control surface for precise work. The portfolio builder is the business-facing workflow for producing a complete portfolio result.</p>
+<h2>1. Isolated Commands Give You Control</h2>
+<p>Individual SDK commands are useful when you want control over one step:</p>
+<ul>
+<li>generate one business objective</li>
+<li>generate one use case</li>
+<li>generate one product reference</li>
+<li>generate one signal</li>
+<li>validate one YAML file</li>
+<li>build one ODPC catalog</li>
+<li>build one ODPG graph</li>
+<li>render HTML output</li>
+</ul>
+<p>These commands are still valid when you need to inspect one artifact type, debug one step, or control exactly what gets generated.</p>
+<h2>2. Portfolio Builder Connects The Parts</h2>
+<p>The portfolio builder creates the whole data product portfolio in one guided flow. It connects:</p>
+<ul>
+<li>business objectives</li>
+<li>use cases</li>
+<li>signals</li>
+<li>product references</li>
+<li>catalog structure</li>
+<li>graph-ready artifacts</li>
+<li>HTML review output</li>
+<li>versioned portfolio outputs</li>
+</ul>
+<p>You give higher-level intent, source material, or a customer transcript. The builder creates a connected workspace that is easier to review, refresh, compare, and reuse.</p>
+<h2>3. When To Use Each Approach</h2>
+<p>Use isolated commands when you are debugging one artifact, demonstrating one object type, or need fine-grained control.</p>
+<p>Use the portfolio builder when you want an end-to-end portfolio result, business users need to understand the output, AI agents need machine-readable YAML artifacts, and the workflow should be repeatable, refreshable, and comparable over time.</p>
+<h2>4. Inspect The Portfolio Workflow</h2>
+<p>Check the portfolio command group:</p>
+<pre><code class="language-bash">open-data-products portfolio --help</code></pre>
+<p>You should see commands for building, refreshing, syncing, localizing, rendering, and explaining a portfolio workspace.</p>
+<p>Now create the source-lane structure used by the builder:</p>
+<pre><code class="language-bash">mkdir -p odps-sdk-guides/16-portfolio-workflow/source_docs/objectives
+mkdir -p odps-sdk-guides/16-portfolio-workflow/source_docs/use-cases
+mkdir -p odps-sdk-guides/16-portfolio-workflow/source_docs/signals
+mkdir -p odps-sdk-guides/16-portfolio-workflow/source_docs/products
+mkdir -p odps-sdk-guides/16-portfolio-workflow/portfolio
+cd odps-sdk-guides/16-portfolio-workflow</code></pre>
+<p>These lanes match the higher-level intent the portfolio builder expects: objectives, use cases, signals, and product source material.</p>
+<h2>What You Learned</h2>
+<ul>
+<li>Isolated commands give you fine-grained control.</li>
+<li>The portfolio builder packages SDK capabilities into an applied business workflow.</li>
+<li>Use isolated commands when you need precise control over one step.</li>
+<li>Use the portfolio builder when you need an end-to-end portfolio result.</li>
+<li>The portfolio command group gives you build, refresh, sync, localize, render, and explain workflows.</li>
+<li>Portfolio source lanes separate objectives, use cases, signals, and products.</li>
+<li>Both approaches are useful in real projects.</li>
+</ul>
+<h2>Next Lesson</h2>
+<p>Continue to <a href="../17-what-the-portfolio-builder-creates/">Lecture 17: What the portfolio builder creates</a>.</p>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

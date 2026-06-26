@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lecture 8: Validating and Explaining Standards Files | Open Data Products SDK Course</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <div class="site">
+    <aside class="sidebar">
+      <a class="brand" href="../index.html"><img src="../assets/cover.png" alt="Open Data Products SDK course cover"></a>
+      <div class="nav-title">Course Material</div>
+      <ul class="nav-list">
+<li><a href="../06-what-the-sdk-is/index.html">Lecture 6: What the Open Data Products SDK Is</a></li>
+<li><a href="../07-installing-and-running-sdk/index.html">Lecture 7: Installing and Running the SDK</a></li>
+<li><a href="index.html" aria-current="page">Lecture 8: Validating and Explaining Standards Files</a></li>
+<li><a href="../09-use-odpv-vocabulary-helpers/index.html">Lecture 9: Use the ODPV Vocabulary Helpers</a></li>
+<li><a href="../10-working-with-local-llms/index.html">Lecture 10: Working with Local LLMs</a></li>
+<li><a href="../11-working-with-online-llm-providers/index.html">Lecture 11: Working with Online LLM Providers</a></li>
+<li><a href="../12-generating-odps-data-products/index.html">Lecture 12: Generating ODPS Data Products from Business Requirements</a></li>
+<li><a href="../13-working-with-generation-and-fragments/index.html">Lecture 13: Working with Generation and Fragments</a></li>
+<li><a href="../14-working-with-odpg-graphs/index.html">Lecture 14: Working with ODPG Graphs</a></li>
+<li><a href="../15-working-with-odpc-catalogs/index.html">Lecture 15: Working with ODPC Catalogs</a></li>
+<li><a href="../16-from-commands-to-portfolio-builder/index.html">Lecture 16: From Commands to Portfolio Builder</a></li>
+<li><a href="../17-what-the-portfolio-builder-creates/index.html">Lecture 17: What the Portfolio Builder Creates</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/index.html">Lecture 18: Build the First Portfolio in Colab</a></li>
+<li><a href="../19-update-portfolio-and-review-version-history/index.html">Lecture 19: Update the Portfolio and Review Version History</a></li>
+<li><a href="../20-how-to-localize-portfolio/index.html">Lecture 20: How to Localize a Portfolio</a></li>
+<li><a href="../21-final-review-human-view-and-agent-ready-yaml/index.html">Lecture 21: Final Review: Human View and Agent-Ready YAML</a></li>
+<li><a href="../22-wrap-up-and-next-steps/index.html">Lecture 22: Wrap-up and Next Steps</a></li>
+<li><a href="../index.html">Open Data Products SDK Course Exercises</a></li>
+<li><a href="../11-working-with-online-llm-providers/source_docs/passenger-flow-product.html">Passenger Flow Data Product</a></li>
+<li><a href="../12-generating-odps-data-products/source_docs/partner-api-product-brief.html">Partner Inventory Availability API</a></li>
+<li><a href="../12-generating-odps-data-products/source_docs/support-operations-email-thread.html">Email thread: Support Operations Performance Product</a></li>
+<li><a href="../13-working-with-generation-and-fragments/source_docs/products/customer-analytics-product.html">Customer Analytics Product</a></li>
+<li><a href="../13-working-with-generation-and-fragments/source_docs/use-cases/customer-retention-use-case.html">Customer Retention</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/source_docs/objectives/reduce-churn-objective.html">Reduce Preventable Churn</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/source_docs/products/customer-health-product.html">Customer Health Signals Product</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/source_docs/use-cases/retention-risk-workflow.html">Retention Risk Workflow</a></li>
+      </ul>
+    </aside>
+    <main class="content-wrap">
+      <article class="content">
+        <div class="breadcrumbs"><a href="../index.html">Course home</a></div>
+<h1>Lecture 8: Validating and Explaining Standards Files</h1>
+<p>The SDK is not only for generation. It also helps you check standards files, explain their structure, and detect missing fields before those files are used in a real project.</p>
+<h2>1. Create A Lesson Folder</h2>
+<pre><code class="language-bash">mkdir -p odps-sdk-guides/08-validate-and-explain
+cd odps-sdk-guides/08-validate-and-explain</code></pre>
+<h2>2. Create <code>product.yaml</code></h2>
+<pre><code class="language-bash">cat &gt; product.yaml &lt;&lt;&#x27;YAML&#x27;
+schema: https://opendataproducts.org/v4.0/schema/odps.json
+version: &quot;4.0&quot;
+product:
+  name: Airport Operations Performance
+  productID: airport-operations-performance
+  visibility: public
+  status: production
+  type: dataset
+  description: Operational data product for monitoring airport turnaround and departure performance.
+  valueProposition: Helps operations teams reduce delays and coordinate airport resources.
+YAML</code></pre>
+<h2>3. Validate The File</h2>
+<pre><code class="language-bash">open-data-products validate product.yaml</code></pre>
+<p>Expected result:</p>
+<pre><code class="language-text">Validation successful!</code></pre>
+<h2>4. Get JSON output</h2>
+<pre><code class="language-bash">open-data-products validate product.yaml --json</code></pre>
+<p>Use <code>--json</code> when the result is consumed by CI, scripts, or another tool.</p>
+<h2>5. Explain The File</h2>
+<pre><code class="language-bash">open-data-products explain product.yaml</code></pre>
+<p>Use explanation when you want a quick human-readable view of what a standards file contains.</p>
+<h2>6. Create A Schema-Invalid File</h2>
+<pre><code class="language-bash">cat &gt; invalid-product.yaml &lt;&lt;&#x27;YAML&#x27;
+schema: https://opendataproducts.org/v4.0/schema/odps.json
+version: &quot;4.0&quot;
+product:
+  name: Missing Product ID Example
+  visibility: public
+  status: draft
+  type: dataset
+  description: This YAML is syntactically valid but is missing a required productID.
+  valueProposition: Shows how validation catches missing standards fields.
+YAML</code></pre>
+<p>Run validation again:</p>
+<pre><code class="language-bash">open-data-products validate invalid-product.yaml --json</code></pre>
+<p>The command should report a validation error instead of a YAML parsing error. That distinction matters: the file is readable YAML, but it does not satisfy the ODPS schema.</p>
+<h2>What You Learned</h2>
+<ul>
+<li><code>open-data-products validate</code> detects the document type.</li>
+<li>The SDK validates ODPS 4.x product files.</li>
+<li><code>open-data-products explain</code> gives a human-readable summary.</li>
+<li>Missing required fields are caught before the file reaches a catalog, graph, portfolio, or automation workflow.</li>
+<li>Human-readable output is useful while learning.</li>
+<li>JSON output is better for automation.</li>
+</ul>
+<h2>Next Lesson</h2>
+<p>Continue to <a href="../09-use-odpv-vocabulary-helpers/">Lecture 9: Use the ODPV vocabulary helpers</a>.</p>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lecture 13: Working with Generation and Fragments | Open Data Products SDK Course</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <div class="site">
+    <aside class="sidebar">
+      <a class="brand" href="../index.html"><img src="../assets/cover.png" alt="Open Data Products SDK course cover"></a>
+      <div class="nav-title">Course Material</div>
+      <ul class="nav-list">
+<li><a href="../06-what-the-sdk-is/index.html">Lecture 6: What the Open Data Products SDK Is</a></li>
+<li><a href="../07-installing-and-running-sdk/index.html">Lecture 7: Installing and Running the SDK</a></li>
+<li><a href="../08-validating-and-explaining-standards-files/index.html">Lecture 8: Validating and Explaining Standards Files</a></li>
+<li><a href="../09-use-odpv-vocabulary-helpers/index.html">Lecture 9: Use the ODPV Vocabulary Helpers</a></li>
+<li><a href="../10-working-with-local-llms/index.html">Lecture 10: Working with Local LLMs</a></li>
+<li><a href="../11-working-with-online-llm-providers/index.html">Lecture 11: Working with Online LLM Providers</a></li>
+<li><a href="../12-generating-odps-data-products/index.html">Lecture 12: Generating ODPS Data Products from Business Requirements</a></li>
+<li><a href="index.html" aria-current="page">Lecture 13: Working with Generation and Fragments</a></li>
+<li><a href="../14-working-with-odpg-graphs/index.html">Lecture 14: Working with ODPG Graphs</a></li>
+<li><a href="../15-working-with-odpc-catalogs/index.html">Lecture 15: Working with ODPC Catalogs</a></li>
+<li><a href="../16-from-commands-to-portfolio-builder/index.html">Lecture 16: From Commands to Portfolio Builder</a></li>
+<li><a href="../17-what-the-portfolio-builder-creates/index.html">Lecture 17: What the Portfolio Builder Creates</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/index.html">Lecture 18: Build the First Portfolio in Colab</a></li>
+<li><a href="../19-update-portfolio-and-review-version-history/index.html">Lecture 19: Update the Portfolio and Review Version History</a></li>
+<li><a href="../20-how-to-localize-portfolio/index.html">Lecture 20: How to Localize a Portfolio</a></li>
+<li><a href="../21-final-review-human-view-and-agent-ready-yaml/index.html">Lecture 21: Final Review: Human View and Agent-Ready YAML</a></li>
+<li><a href="../22-wrap-up-and-next-steps/index.html">Lecture 22: Wrap-up and Next Steps</a></li>
+<li><a href="../index.html">Open Data Products SDK Course Exercises</a></li>
+<li><a href="../11-working-with-online-llm-providers/source_docs/passenger-flow-product.html">Passenger Flow Data Product</a></li>
+<li><a href="../12-generating-odps-data-products/source_docs/partner-api-product-brief.html">Partner Inventory Availability API</a></li>
+<li><a href="../12-generating-odps-data-products/source_docs/support-operations-email-thread.html">Email thread: Support Operations Performance Product</a></li>
+<li><a href="source_docs/products/customer-analytics-product.html">Customer Analytics Product</a></li>
+<li><a href="source_docs/use-cases/customer-retention-use-case.html">Customer Retention</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/source_docs/objectives/reduce-churn-objective.html">Reduce Preventable Churn</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/source_docs/products/customer-health-product.html">Customer Health Signals Product</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/source_docs/use-cases/retention-risk-workflow.html">Retention Risk Workflow</a></li>
+      </ul>
+    </aside>
+    <main class="content-wrap">
+      <article class="content">
+        <div class="breadcrumbs"><a href="../index.html">Course home</a></div>
+<h1>Lecture 13: Working with Generation and Fragments</h1>
+<p>A fragment is a small, valid, standalone YAML document that describes one portfolio object or one narrow object set. It is intended to be collected into a larger ODPC catalog or used as node input for an ODPG graph.</p>
+<p>Examples:</p>
+<ul>
+<li><code>product_reference_&lt;id&gt;.yaml</code> contains one ODPC product reference</li>
+<li><code>use_case_&lt;id&gt;.yaml</code> contains one ODPC use case</li>
+<li><code>business_objective_&lt;id&gt;.yaml</code> contains one ODPC business objective</li>
+<li><code>signal_&lt;id&gt;.yaml</code> contains one ODPC signal</li>
+</ul>
+<p>Fragments are intermediate authoring units. They are not the final catalog, and they are usually not full ODPS product specs. This lesson generates multiple ODPC fragments from type-specific source folders.</p>
+<h2>1. Prepare folders</h2>
+<pre><code class="language-bash">mkdir -p odps-sdk-guides/13-fragments/source_docs/products
+mkdir -p odps-sdk-guides/13-fragments/source_docs/use-cases
+mkdir -p odps-sdk-guides/13-fragments/source_docs/objectives
+mkdir -p odps-sdk-guides/13-fragments/source_docs/signals
+mkdir -p odps-sdk-guides/13-fragments/fragments
+cd odps-sdk-guides/13-fragments</code></pre>
+<h2>2. Add Markdown and text source files</h2>
+<pre><code class="language-bash">cat &gt; source_docs/products/airport-operations-product.md &lt;&lt;&#x27;MD&#x27;
+# Airport Operations Performance Product
+
+This data product combines flight schedule, gate assignment, turnaround status,
+crew readiness, and departure delay information. It supports operational
+decision making in the airport operations control center.
+MD
+
+cat &gt; source_docs/use-cases/delay-risk-use-case.md &lt;&lt;&#x27;MD&#x27;
+# Delay Risk Monitoring Use Case
+
+Operations controllers need to identify flights at risk of delayed departure
+at least 20 minutes before scheduled off-block time. The use case supports
+prioritizing recovery actions for crews, gates, baggage, and cleaning.
+MD
+
+cat &gt; source_docs/objectives/reduce-delay-objective.txt &lt;&lt;&#x27;TXT&#x27;
+Business objective: reduce average departure delay minutes for short-haul
+flights during morning and evening peak periods. The objective is measured by
+delay minutes, number of recovered flights, and operational response time.
+TXT
+
+cat &gt; source_docs/signals/turnaround-delay-signal.txt &lt;&lt;&#x27;TXT&#x27;
+Signal: turnaround delay risk increases when inbound arrival is late, baggage
+unloading has not started, cleaning crew is not assigned, or the gate has a
+conflict with another aircraft movement.
+TXT</code></pre>
+<h2>3. Generate product fragments</h2>
+<pre><code class="language-bash">open-data-products generate \
+  --input source_docs/products/ \
+  --kind product-reference \
+  --output fragments/
+
+open-data-products generate \
+  --input source_docs/use-cases/ \
+  --kind use-case \
+  --output fragments/
+
+open-data-products generate \
+  --input source_docs/objectives/ \
+  --kind objective \
+  --output fragments/
+
+open-data-products generate \
+  --input source_docs/signals/ \
+  --kind signal \
+  --output fragments/</code></pre>
+<h2>4. Inspect generated artifacts</h2>
+<pre><code class="language-bash">ls fragments/</code></pre>
+<p>Expected artifact types:</p>
+<ul>
+<li><code>product_reference_*.yaml</code></li>
+<li><code>use_case_*.yaml</code></li>
+<li><code>business_objective_*.yaml</code></li>
+<li><code>signal_*.yaml</code></li>
+</ul>
+<h2>5. Build and validate a catalog</h2>
+<pre><code class="language-bash">open-data-products odpc-build fragments/ \
+  --output catalog.yaml
+
+open-data-products validate catalog.yaml</code></pre>
+<h2>What You Learned</h2>
+<ul>
+<li>Type-specific folder input keeps each selected prompt focused.</li>
+<li>Generated fragments are separate YAML files.</li>
+<li>The generated ODPC fragments can be collected into a catalog.</li>
+<li>Fragments make portfolio building easier because each object can be reviewed independently before catalog and graph assembly.</li>
+</ul>
+<h2>Next Lesson</h2>
+<p>Continue to <a href="../14-working-with-odpg-graphs/">Lecture 14: Working with ODPG graphs</a>.</p>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

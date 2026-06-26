@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lecture 19: Update the Portfolio and Review Version History | Open Data Products SDK Course</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <div class="site">
+    <aside class="sidebar">
+      <a class="brand" href="../index.html"><img src="../assets/cover.png" alt="Open Data Products SDK course cover"></a>
+      <div class="nav-title">Course Material</div>
+      <ul class="nav-list">
+<li><a href="../06-what-the-sdk-is/index.html">Lecture 6: What the Open Data Products SDK Is</a></li>
+<li><a href="../07-installing-and-running-sdk/index.html">Lecture 7: Installing and Running the SDK</a></li>
+<li><a href="../08-validating-and-explaining-standards-files/index.html">Lecture 8: Validating and Explaining Standards Files</a></li>
+<li><a href="../09-use-odpv-vocabulary-helpers/index.html">Lecture 9: Use the ODPV Vocabulary Helpers</a></li>
+<li><a href="../10-working-with-local-llms/index.html">Lecture 10: Working with Local LLMs</a></li>
+<li><a href="../11-working-with-online-llm-providers/index.html">Lecture 11: Working with Online LLM Providers</a></li>
+<li><a href="../12-generating-odps-data-products/index.html">Lecture 12: Generating ODPS Data Products from Business Requirements</a></li>
+<li><a href="../13-working-with-generation-and-fragments/index.html">Lecture 13: Working with Generation and Fragments</a></li>
+<li><a href="../14-working-with-odpg-graphs/index.html">Lecture 14: Working with ODPG Graphs</a></li>
+<li><a href="../15-working-with-odpc-catalogs/index.html">Lecture 15: Working with ODPC Catalogs</a></li>
+<li><a href="../16-from-commands-to-portfolio-builder/index.html">Lecture 16: From Commands to Portfolio Builder</a></li>
+<li><a href="../17-what-the-portfolio-builder-creates/index.html">Lecture 17: What the Portfolio Builder Creates</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/index.html">Lecture 18: Build the First Portfolio in Colab</a></li>
+<li><a href="index.html" aria-current="page">Lecture 19: Update the Portfolio and Review Version History</a></li>
+<li><a href="../20-how-to-localize-portfolio/index.html">Lecture 20: How to Localize a Portfolio</a></li>
+<li><a href="../21-final-review-human-view-and-agent-ready-yaml/index.html">Lecture 21: Final Review: Human View and Agent-Ready YAML</a></li>
+<li><a href="../22-wrap-up-and-next-steps/index.html">Lecture 22: Wrap-up and Next Steps</a></li>
+<li><a href="../index.html">Open Data Products SDK Course Exercises</a></li>
+<li><a href="../11-working-with-online-llm-providers/source_docs/passenger-flow-product.html">Passenger Flow Data Product</a></li>
+<li><a href="../12-generating-odps-data-products/source_docs/partner-api-product-brief.html">Partner Inventory Availability API</a></li>
+<li><a href="../12-generating-odps-data-products/source_docs/support-operations-email-thread.html">Email thread: Support Operations Performance Product</a></li>
+<li><a href="../13-working-with-generation-and-fragments/source_docs/products/customer-analytics-product.html">Customer Analytics Product</a></li>
+<li><a href="../13-working-with-generation-and-fragments/source_docs/use-cases/customer-retention-use-case.html">Customer Retention</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/source_docs/objectives/reduce-churn-objective.html">Reduce Preventable Churn</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/source_docs/products/customer-health-product.html">Customer Health Signals Product</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/source_docs/use-cases/retention-risk-workflow.html">Retention Risk Workflow</a></li>
+      </ul>
+    </aside>
+    <main class="content-wrap">
+      <article class="content">
+        <div class="breadcrumbs"><a href="../index.html">Course home</a></div>
+<h1>Lecture 19: Update the Portfolio and Review Version History</h1>
+<p>A portfolio is a living artifact. Source material changes, new signals appear, and product drafts improve over time. This lesson is about maintaining that portfolio without losing control of the previous version.</p>
+<p>The important idea is that <code>refresh</code> and <code>sync</code> have different purposes:</p>
+<pre><code class="language-text">source_docs/ changed        -&gt; refresh proposes the next portfolio version
+generated YAML edited by you -&gt; sync rebuilds outputs from controlled edits</code></pre>
+<p>When you add raw source material, the LLM may infer more than one change. A new signal can create a new signal fragment, update graph relationships, affect use case links, or suggest changed product details. Treat the refreshed portfolio as a proposed next version that you review before accepting.</p>
+<p>Continue from the same workspace folder you created in Lecture 18:</p>
+<pre><code class="language-text">/content/odp-portfolio-workspace</code></pre>
+<p>All commands in this lesson assume the current folder contains both <code>source_docs/</code> and <code>portfolio/</code>.</p>
+<h2>1. Add Or Change Source Material</h2>
+<p>Add a new file to one saved source lane. In Colab, run this in a shell cell from <code>/content/odp-portfolio-workspace</code>:</p>
+<pre><code class="language-bash">%%bash
+cat &gt; source_docs/signals/support-pressure-signal.txt &lt;&lt;&#x27;TXT&#x27;
+Support operations note from April 19, 2026 at 10:15.
+
+Priority accounts with unresolved tickets are waiting longer for first response.
+Customer success teams want this signal linked to retention review workflows.
+TXT</code></pre>
+<h2>2. Refresh Changed Sources</h2>
+<pre><code class="language-bash">!open-data-products portfolio refresh portfolio/ \
+  --provider claude \
+  --model claude-sonnet-4-5</code></pre>
+<p>Refresh snapshots the current workspace, sends changed or new source files to the LLM, and merges the generated result into the existing portfolio. Existing catalog objects, product drafts, and graph links are carried forward unless the refresh produces an object or edge with the same stable identity. New evidence can still add objects or relationships, so treat refresh as a proposed next version and review the diff before accepting it.</p>
+<p>After refresh, inspect the changed workspace:</p>
+<pre><code class="language-bash">!find portfolio/odpc/fragments -maxdepth 1 -type f | sort
+!open-data-products portfolio explain portfolio/</code></pre>
+<p>If you use Git, this is also the right moment to compare the refreshed YAML with the previous version:</p>
+<pre><code class="language-bash">!git diff -- portfolio</code></pre>
+<p>In Colab, if you are not using Git, rely on the <code>portfolio/versions/</code> snapshots created by the SDK and the generated HTML version links.</p>
+<h2>3. Force Full Reprocessing</h2>
+<pre><code class="language-bash">!open-data-products portfolio refresh portfolio/ \
+  --all-sources \
+  --provider claude \
+  --model claude-sonnet-4-5</code></pre>
+<p>Use <code>--all-sources</code> when the full evidence set should be reprocessed.</p>
+<p>This can change more of the portfolio than a normal refresh. Use it when you want the current model and prompts to reconsider the whole evidence set, not only changed source files.</p>
+<h2>4. Sync Edited YAML Without An LLM</h2>
+<pre><code class="language-bash">!open-data-products portfolio sync portfolio/</code></pre>
+<p>Use sync after directly editing ODPC fragments, ODPS products, or graph YAML. This does not interpret raw source material again. It is the safer maintenance path when you already know the exact YAML change you want.</p>
+<h2>5. Review Version History</h2>
+<pre><code class="language-bash">!find portfolio/versions -maxdepth 2 -type f | sort</code></pre>
+<p>Successful builds and refreshes snapshot previous portfolio outputs. The latest <code>index.html</code> includes links to available versions so reviewers can compare current and previous portfolio pages.</p>
+<p>One caveat: version snapshots are not automatically localized. Localization creates translated pages for the active portfolio workspace, not for every older snapshot under <code>portfolio/versions/</code>. If translated review evidence matters, localize the portfolio when that version is current and preserve the zipped localized package.</p>
+<p>For portfolio maintenance, keep this habit:</p>
+<pre><code class="language-text">refresh -&gt; compare -&gt; decide what to keep
+sync    -&gt; rebuild after deliberate YAML edits</code></pre>
+<h2>What You Learned</h2>
+<ul>
+<li>Refresh processes changed and new source documents by default.</li>
+<li>Refresh may create new or changed portfolio objects because it interprets new evidence.</li>
+<li><code>--all-sources</code> forces full reprocessing and can change more of the portfolio.</li>
+<li><code>portfolio sync</code> rebuilds outputs from edited YAML without asking an LLM to reinterpret raw source material.</li>
+<li>Version snapshots support review, comparison, and governance over time.</li>
+<li>Localized pages are generated for the current portfolio workspace; older snapshots are not translated automatically.</li>
+</ul>
+<h2>Next Lesson</h2>
+<p>Continue to <a href="../20-how-to-localize-portfolio/">Lecture 20: How to localize a portfolio</a>.</p>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

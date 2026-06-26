@@ -16,6 +16,18 @@ link is added:
 
 [Add Udemy course link here](https://www.udemy.com/)
 
+## Browser Version
+
+This repository also includes a static browser version of the course material.
+Open [`html/index.html`](html/index.html) in a browser to read the lessons with
+navigation and styling.
+
+To rebuild the browser package after editing the Markdown lessons, run:
+
+```bash
+python3 tools/build_html.py
+```
+
 ## What This Repository Contains
 
 The repository is organized as lesson folders plus Colab notebooks. Each lesson

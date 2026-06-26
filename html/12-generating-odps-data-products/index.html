@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lecture 12: Generating ODPS Data Products from Business Requirements | Open Data Products SDK Course</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <div class="site">
+    <aside class="sidebar">
+      <a class="brand" href="../index.html"><img src="../assets/cover.png" alt="Open Data Products SDK course cover"></a>
+      <div class="nav-title">Course Material</div>
+      <ul class="nav-list">
+<li><a href="../06-what-the-sdk-is/index.html">Lecture 6: What the Open Data Products SDK Is</a></li>
+<li><a href="../07-installing-and-running-sdk/index.html">Lecture 7: Installing and Running the SDK</a></li>
+<li><a href="../08-validating-and-explaining-standards-files/index.html">Lecture 8: Validating and Explaining Standards Files</a></li>
+<li><a href="../09-use-odpv-vocabulary-helpers/index.html">Lecture 9: Use the ODPV Vocabulary Helpers</a></li>
+<li><a href="../10-working-with-local-llms/index.html">Lecture 10: Working with Local LLMs</a></li>
+<li><a href="../11-working-with-online-llm-providers/index.html">Lecture 11: Working with Online LLM Providers</a></li>
+<li><a href="index.html" aria-current="page">Lecture 12: Generating ODPS Data Products from Business Requirements</a></li>
+<li><a href="../13-working-with-generation-and-fragments/index.html">Lecture 13: Working with Generation and Fragments</a></li>
+<li><a href="../14-working-with-odpg-graphs/index.html">Lecture 14: Working with ODPG Graphs</a></li>
+<li><a href="../15-working-with-odpc-catalogs/index.html">Lecture 15: Working with ODPC Catalogs</a></li>
+<li><a href="../16-from-commands-to-portfolio-builder/index.html">Lecture 16: From Commands to Portfolio Builder</a></li>
+<li><a href="../17-what-the-portfolio-builder-creates/index.html">Lecture 17: What the Portfolio Builder Creates</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/index.html">Lecture 18: Build the First Portfolio in Colab</a></li>
+<li><a href="../19-update-portfolio-and-review-version-history/index.html">Lecture 19: Update the Portfolio and Review Version History</a></li>
+<li><a href="../20-how-to-localize-portfolio/index.html">Lecture 20: How to Localize a Portfolio</a></li>
+<li><a href="../21-final-review-human-view-and-agent-ready-yaml/index.html">Lecture 21: Final Review: Human View and Agent-Ready YAML</a></li>
+<li><a href="../22-wrap-up-and-next-steps/index.html">Lecture 22: Wrap-up and Next Steps</a></li>
+<li><a href="../index.html">Open Data Products SDK Course Exercises</a></li>
+<li><a href="../11-working-with-online-llm-providers/source_docs/passenger-flow-product.html">Passenger Flow Data Product</a></li>
+<li><a href="source_docs/partner-api-product-brief.html">Partner Inventory Availability API</a></li>
+<li><a href="source_docs/support-operations-email-thread.html">Email thread: Support Operations Performance Product</a></li>
+<li><a href="../13-working-with-generation-and-fragments/source_docs/products/customer-analytics-product.html">Customer Analytics Product</a></li>
+<li><a href="../13-working-with-generation-and-fragments/source_docs/use-cases/customer-retention-use-case.html">Customer Retention</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/source_docs/objectives/reduce-churn-objective.html">Reduce Preventable Churn</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/source_docs/products/customer-health-product.html">Customer Health Signals Product</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/source_docs/use-cases/retention-risk-workflow.html">Retention Risk Workflow</a></li>
+      </ul>
+    </aside>
+    <main class="content-wrap">
+      <article class="content">
+        <div class="breadcrumbs"><a href="../index.html">Course home</a></div>
+<h1>Lecture 12: Generating ODPS Data Products from Business Requirements</h1>
+<p>This lesson turns business requirement text, transcripts, emails, and briefs into full ODPS product YAML drafts. This is full data product generation, not fragment generation yet.</p>
+<h2>1. Prepare folders</h2>
+<pre><code class="language-bash">mkdir -p odps-sdk-guides/12-odps-products/source_docs
+mkdir -p odps-sdk-guides/12-odps-products/products</code></pre>
+<h2>2. Add Source Documents</h2>
+<p>From the repository root, copy the sample files from this lesson folder:</p>
+<pre><code class="language-bash">cp examples/guides/12-generating-odps-data-products/source_docs/* \
+  odps-sdk-guides/12-odps-products/source_docs/
+
+cd odps-sdk-guides/12-odps-products</code></pre>
+<p>You can also write your own business requirement notes into the same shape. Each Markdown or text file becomes one ODPS product draft.</p>
+<h2>3. Generate minimal ODPS products</h2>
+<pre><code class="language-bash">open-data-products generate \
+  --provider claude \
+  --input source_docs/ \
+  --kind odps-product \
+  --profile minimal \
+  --output products/</code></pre>
+<p>The default <code>minimal</code> profile is evidence-only. It creates valid ODPS product YAML from source-backed facts and avoids drafting optional business components.</p>
+<h2>4. Generate complete draft products</h2>
+<pre><code class="language-bash">open-data-products generate \
+  --provider claude \
+  --input source_docs/ \
+  --kind odps-product \
+  --profile complete-draft \
+  --output products/</code></pre>
+<p>The <code>complete-draft</code> profile drafts <code>SLA</code>, <code>dataQuality</code>, and <code>pricingPlans</code> when the source does not provide enough detail. Add <code>--json</code> when you want a structured report with <code>review_notes</code>, <code>drafted_components</code>, and <code>evidence_gaps</code>.</p>
+<h2>5. Force specific ODPS components</h2>
+<pre><code class="language-bash">open-data-products generate \
+  --provider claude \
+  --input source_docs/ \
+  --kind odps-product \
+  --profile minimal \
+  --include-components SLA,dataQuality,pricingPlans,dataAccess,license \
+  --output products/</code></pre>
+<p>Supported component names are <code>contract</code>, <code>SLA</code>, <code>dataQuality</code>, <code>pricingPlans</code>, <code>license</code>, <code>dataAccess</code>, <code>dataHolder</code>, <code>paymentGateways</code>, and <code>productStrategy</code>.</p>
+<h2>6. Chunk long transcripts</h2>
+<pre><code class="language-bash">open-data-products generate \
+  --provider claude \
+  --input source_docs/ \
+  --kind odps-product \
+  --profile minimal \
+  --max-source-chars 40000 \
+  --output products/</code></pre>
+<p>When a source file is longer than <code>--max-source-chars</code>, the SDK extracts facts from chunks, merges those facts, and then generates ODPS from the merged facts.</p>
+<h2>7. Validate generated products</h2>
+<pre><code class="language-bash">ls products/
+
+for product_file in products/*.yaml; do
+  open-data-products validate &quot;$product_file&quot;
+done</code></pre>
+<h2>What You Learned</h2>
+<ul>
+<li><code>--kind odps-product</code> processes every source file in a folder.</li>
+<li><code>--profile minimal</code> stays evidence-only.</li>
+<li><code>--profile complete-draft</code> drafts key review-needed components.</li>
+<li><code>--include-components</code> forces specific ODPS product components.</li>
+<li><code>--max-source-chars</code> chunks long transcript or email files before ODPS generation.</li>
+<li>Generated ODPS YAML should be reviewed by a human and validated after generation.</li>
+</ul>
+<h2>Next Lesson</h2>
+<p>Continue to <a href="../13-working-with-generation-and-fragments/">Lecture 13: Working with generation and fragments</a>.</p>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

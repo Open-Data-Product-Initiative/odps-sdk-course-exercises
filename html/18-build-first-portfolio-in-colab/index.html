@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lecture 18: Build the First Portfolio in Colab | Open Data Products SDK Course</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <div class="site">
+    <aside class="sidebar">
+      <a class="brand" href="../index.html"><img src="../assets/cover.png" alt="Open Data Products SDK course cover"></a>
+      <div class="nav-title">Course Material</div>
+      <ul class="nav-list">
+<li><a href="../06-what-the-sdk-is/index.html">Lecture 6: What the Open Data Products SDK Is</a></li>
+<li><a href="../07-installing-and-running-sdk/index.html">Lecture 7: Installing and Running the SDK</a></li>
+<li><a href="../08-validating-and-explaining-standards-files/index.html">Lecture 8: Validating and Explaining Standards Files</a></li>
+<li><a href="../09-use-odpv-vocabulary-helpers/index.html">Lecture 9: Use the ODPV Vocabulary Helpers</a></li>
+<li><a href="../10-working-with-local-llms/index.html">Lecture 10: Working with Local LLMs</a></li>
+<li><a href="../11-working-with-online-llm-providers/index.html">Lecture 11: Working with Online LLM Providers</a></li>
+<li><a href="../12-generating-odps-data-products/index.html">Lecture 12: Generating ODPS Data Products from Business Requirements</a></li>
+<li><a href="../13-working-with-generation-and-fragments/index.html">Lecture 13: Working with Generation and Fragments</a></li>
+<li><a href="../14-working-with-odpg-graphs/index.html">Lecture 14: Working with ODPG Graphs</a></li>
+<li><a href="../15-working-with-odpc-catalogs/index.html">Lecture 15: Working with ODPC Catalogs</a></li>
+<li><a href="../16-from-commands-to-portfolio-builder/index.html">Lecture 16: From Commands to Portfolio Builder</a></li>
+<li><a href="../17-what-the-portfolio-builder-creates/index.html">Lecture 17: What the Portfolio Builder Creates</a></li>
+<li><a href="index.html" aria-current="page">Lecture 18: Build the First Portfolio in Colab</a></li>
+<li><a href="../19-update-portfolio-and-review-version-history/index.html">Lecture 19: Update the Portfolio and Review Version History</a></li>
+<li><a href="../20-how-to-localize-portfolio/index.html">Lecture 20: How to Localize a Portfolio</a></li>
+<li><a href="../21-final-review-human-view-and-agent-ready-yaml/index.html">Lecture 21: Final Review: Human View and Agent-Ready YAML</a></li>
+<li><a href="../22-wrap-up-and-next-steps/index.html">Lecture 22: Wrap-up and Next Steps</a></li>
+<li><a href="../index.html">Open Data Products SDK Course Exercises</a></li>
+<li><a href="../11-working-with-online-llm-providers/source_docs/passenger-flow-product.html">Passenger Flow Data Product</a></li>
+<li><a href="../12-generating-odps-data-products/source_docs/partner-api-product-brief.html">Partner Inventory Availability API</a></li>
+<li><a href="../12-generating-odps-data-products/source_docs/support-operations-email-thread.html">Email thread: Support Operations Performance Product</a></li>
+<li><a href="../13-working-with-generation-and-fragments/source_docs/products/customer-analytics-product.html">Customer Analytics Product</a></li>
+<li><a href="../13-working-with-generation-and-fragments/source_docs/use-cases/customer-retention-use-case.html">Customer Retention</a></li>
+<li><a href="source_docs/objectives/reduce-churn-objective.html">Reduce Preventable Churn</a></li>
+<li><a href="source_docs/products/customer-health-product.html">Customer Health Signals Product</a></li>
+<li><a href="source_docs/use-cases/retention-risk-workflow.html">Retention Risk Workflow</a></li>
+      </ul>
+    </aside>
+    <main class="content-wrap">
+      <article class="content">
+        <div class="breadcrumbs"><a href="../index.html">Course home</a></div>
+<h1>Lecture 18: Build the First Portfolio in Colab</h1>
+<p>This is the main hands-on portfolio lesson. It loads source material, runs the portfolio builder, inspects generated folders, opens HTML output, and reviews catalog and graph files.</p>
+<h2>1. Prepare Colab</h2>
+<p>In a new Colab notebook, install the SDK:</p>
+<pre><code class="language-python">!python -m pip install --upgrade open-data-products==0.2.3</code></pre>
+<p>If you use Claude, store the API key in the notebook environment:</p>
+<pre><code class="language-python">from google.colab import userdata
+import os
+
+os.environ[&quot;ANTHROPIC_API_KEY&quot;] = userdata.get(&quot;ANTHROPIC_API_KEY&quot;)</code></pre>
+<p>Do not commit or share notebooks that contain real API keys.</p>
+<h2>2. Create A Workspace Folder</h2>
+<p>Keep the portfolio section in one working folder. In Colab, this keeps source files, generated YAML, HTML, localized pages, and version history together instead of scattering files through downloads:</p>
+<pre><code class="language-python">!mkdir -p /content/odp-portfolio-workspace
+%cd /content/odp-portfolio-workspace</code></pre>
+<p>For local work, create the same kind of folder and run the remaining commands from inside it:</p>
+<pre><code class="language-bash">mkdir -p odp-portfolio-workspace
+cd odp-portfolio-workspace</code></pre>
+<p>The rest of Lectures 18-22 assume your current folder is this workspace.</p>
+<h2>3. Create Source Lanes</h2>
+<p>Create source folders in the notebook runtime:</p>
+<pre><code class="language-python">!mkdir -p source_docs/objectives source_docs/use-cases source_docs/signals source_docs/products</code></pre>
+<p>Add one source file to each lane. In Colab, put <code>%%bash</code> at the top of the cell so the whole block runs as shell commands inside the current workspace:</p>
+<pre><code class="language-bash">%%bash
+cat &gt; source_docs/objectives/reduce-churn-objective.md &lt;&lt;&#x27;MD&#x27;
+# Reduce Preventable Churn
+
+Customer success leaders want to reduce preventable churn by identifying
+accounts with declining product usage, unresolved support friction, and renewal
+risk before the next business review.
+MD
+
+cat &gt; source_docs/use-cases/retention-risk-workflow.md &lt;&lt;&#x27;MD&#x27;
+# Retention Risk Workflow
+
+Customer success managers need a weekly workflow that ranks accounts by churn
+risk, explains the main risk drivers, and suggests which accounts should be
+contacted before renewal.
+MD
+
+cat &gt; source_docs/signals/churn-risk-signal.txt &lt;&lt;&#x27;TXT&#x27;
+Daily customer health note from April 18, 2026 at 09:30.
+
+Product usage is down for several priority accounts, unresolved support tickets
+are increasing, and renewal conversations have slowed. The signal should help
+retention teams detect preventable churn earlier.
+TXT
+
+cat &gt; source_docs/products/customer-health-product.md &lt;&lt;&#x27;MD&#x27;
+# Customer Health Signals Product
+
+The product combines customer profile, subscription status, product usage,
+support ticket volume, renewal date, campaign engagement, and churn-risk
+signals. It is used by customer success and lifecycle marketing teams for
+retention planning.
+MD</code></pre>
+<p>These four files match the input map from Lecture 17: objectives, use cases, signals, and products.</p>
+<h2>4. Run Portfolio Build</h2>
+<pre><code class="language-python">!open-data-products portfolio build \
+  --objectives source_docs/objectives/ \
+  --use-cases source_docs/use-cases/ \
+  --signals source_docs/signals/ \
+  --products source_docs/products/ \
+  --title &quot;Customer Intelligence Portfolio&quot; \
+  --output portfolio/ \
+  --provider claude \
+  --model claude-sonnet-4-5</code></pre>
+<h2>5. Inspect Generated Folders</h2>
+<pre><code class="language-python">!find portfolio -maxdepth 3 -type f | sort</code></pre>
+<p>Look for:</p>
+<ul>
+<li><code>portfolio/index.html</code></li>
+<li><code>portfolio/portfolio.yaml</code></li>
+<li><code>portfolio/odpc/catalog.yaml</code></li>
+<li><code>portfolio/odpc/fragments/</code></li>
+<li><code>portfolio/odpg/graph.yaml</code></li>
+<li><code>portfolio/odps/products/</code></li>
+</ul>
+<h2>6. Open The HTML Output</h2>
+<p>Open <code>portfolio/index.html</code> from the workspace. In Colab, use the file browser on the left side and open the file under:</p>
+<pre><code class="language-text">/content/odp-portfolio-workspace/portfolio/index.html</code></pre>
+<p>Avoid downloading only <code>index.html</code> by itself. Later lessons add localized pages and translation files beside it, so the whole <code>portfolio/</code> folder should stay together. If you need to move the result to your computer, zip the portfolio folder:</p>
+<pre><code class="language-python">!zip -r portfolio-review.zip portfolio</code></pre>
+<p>The page contains tabs for overview, artifact types, products, graph, and about content.</p>
+<h2>7. Review Catalog And Graph Files</h2>
+<pre><code class="language-python">!open-data-products portfolio explain portfolio/
+!open-data-products validate portfolio/odpc/catalog.yaml
+!open-data-products validate portfolio/odpg/graph.yaml</code></pre>
+<h2>What You Learned</h2>
+<ul>
+<li>Portfolio build combines source lanes into one workspace.</li>
+<li>The workspace includes ODPC, ODPS, ODPG, HTML, and report artifacts.</li>
+<li>The browser view is for review, while YAML files remain agent-ready.</li>
+</ul>
+<h2>Next Lesson</h2>
+<p>Continue to <a href="../19-update-portfolio-and-review-version-history/">Lecture 19: Update the portfolio and review version history</a>.</p>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

@@ -142,11 +142,9 @@ HTML pages without changing the canonical YAML artifacts.
 
 Use these references when you want to go deeper:
 
-- [SDK README](../../../README.md)
-- [SDK API reference](../../../docs/user/API.md)
-- [SDK command guide](../../../docs/user/commands.md)
-- [Generation guide](../../../docs/user/generation.md)
-- [Portfolio development notes](../../../docs/development/portfolio.md)
+- [Course repository README](../README.md)
+- [Open Data Products SDK project page](https://opendataproducts.org/sdk/)
+- [Open Data Products SDK package](https://pypi.org/project/open-data-products/)
 - [ODPS product specification](https://opendataproducts.org/v4.1/)
 - [ODPC catalog specification](https://opendataproducts.org/odpc-v1.0/)
 - [ODPG graph specification](https://opendataproducts.org/odpg-v1.0/)

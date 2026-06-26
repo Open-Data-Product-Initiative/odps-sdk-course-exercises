@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lecture 17: What the Portfolio Builder Creates | Open Data Products SDK Course</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <div class="site">
+    <aside class="sidebar">
+      <a class="brand" href="../index.html"><img src="../assets/cover.png" alt="Open Data Products SDK course cover"></a>
+      <div class="nav-title">Course Material</div>
+      <ul class="nav-list">
+<li><a href="../06-what-the-sdk-is/index.html">Lecture 6: What the Open Data Products SDK Is</a></li>
+<li><a href="../07-installing-and-running-sdk/index.html">Lecture 7: Installing and Running the SDK</a></li>
+<li><a href="../08-validating-and-explaining-standards-files/index.html">Lecture 8: Validating and Explaining Standards Files</a></li>
+<li><a href="../09-use-odpv-vocabulary-helpers/index.html">Lecture 9: Use the ODPV Vocabulary Helpers</a></li>
+<li><a href="../10-working-with-local-llms/index.html">Lecture 10: Working with Local LLMs</a></li>
+<li><a href="../11-working-with-online-llm-providers/index.html">Lecture 11: Working with Online LLM Providers</a></li>
+<li><a href="../12-generating-odps-data-products/index.html">Lecture 12: Generating ODPS Data Products from Business Requirements</a></li>
+<li><a href="../13-working-with-generation-and-fragments/index.html">Lecture 13: Working with Generation and Fragments</a></li>
+<li><a href="../14-working-with-odpg-graphs/index.html">Lecture 14: Working with ODPG Graphs</a></li>
+<li><a href="../15-working-with-odpc-catalogs/index.html">Lecture 15: Working with ODPC Catalogs</a></li>
+<li><a href="../16-from-commands-to-portfolio-builder/index.html">Lecture 16: From Commands to Portfolio Builder</a></li>
+<li><a href="index.html" aria-current="page">Lecture 17: What the Portfolio Builder Creates</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/index.html">Lecture 18: Build the First Portfolio in Colab</a></li>
+<li><a href="../19-update-portfolio-and-review-version-history/index.html">Lecture 19: Update the Portfolio and Review Version History</a></li>
+<li><a href="../20-how-to-localize-portfolio/index.html">Lecture 20: How to Localize a Portfolio</a></li>
+<li><a href="../21-final-review-human-view-and-agent-ready-yaml/index.html">Lecture 21: Final Review: Human View and Agent-Ready YAML</a></li>
+<li><a href="../22-wrap-up-and-next-steps/index.html">Lecture 22: Wrap-up and Next Steps</a></li>
+<li><a href="../index.html">Open Data Products SDK Course Exercises</a></li>
+<li><a href="../11-working-with-online-llm-providers/source_docs/passenger-flow-product.html">Passenger Flow Data Product</a></li>
+<li><a href="../12-generating-odps-data-products/source_docs/partner-api-product-brief.html">Partner Inventory Availability API</a></li>
+<li><a href="../12-generating-odps-data-products/source_docs/support-operations-email-thread.html">Email thread: Support Operations Performance Product</a></li>
+<li><a href="../13-working-with-generation-and-fragments/source_docs/products/customer-analytics-product.html">Customer Analytics Product</a></li>
+<li><a href="../13-working-with-generation-and-fragments/source_docs/use-cases/customer-retention-use-case.html">Customer Retention</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/source_docs/objectives/reduce-churn-objective.html">Reduce Preventable Churn</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/source_docs/products/customer-health-product.html">Customer Health Signals Product</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/source_docs/use-cases/retention-risk-workflow.html">Retention Risk Workflow</a></li>
+      </ul>
+    </aside>
+    <main class="content-wrap">
+      <article class="content">
+        <div class="breadcrumbs"><a href="../index.html">Course home</a></div>
+<h1>Lecture 17: What the Portfolio Builder Creates</h1>
+<p>Before running the portfolio builder, it helps to know the shape of the inputs and the workspace it will create. This lesson is the map for the hands-on build in Lecture 18.</p>
+<p>Data product work is often fragmented. Ideas live in slides. Requirements live in spreadsheets. Governance notes live in documents. Technical details live in repositories. Catalog entries live elsewhere.</p>
+<p>The portfolio builder connects this scattered intent into structured portfolio artifacts.</p>
+<h2>1. Input Map</h2>
+<p>Portfolio build starts from source lanes. Each lane can contain Markdown or text files:</p>
+<ul>
+<li><code>source_docs/objectives/</code>: business goals, outcomes, KPIs, or strategic intent</li>
+<li><code>source_docs/use-cases/</code>: decisions, workflows, user needs, or business processes that need data</li>
+<li><code>source_docs/signals/</code>: market, operational, customer, quality, or usage evidence</li>
+<li><code>source_docs/products/</code>: product briefs, transcripts, emails, or technical notes that describe possible data products</li>
+</ul>
+<p>The separated lanes help the builder understand what kind of portfolio object each source document should become.</p>
+<h2>2. Output Map</h2>
+<p>A successful build creates a portfolio workspace. In the next lesson, you will inspect files like these:</p>
+<pre><code class="language-text">portfolio/
+  index.html
+  portfolio.yaml
+  odpc/
+    catalog.yaml
+    fragments/
+  odpg/
+    graph.yaml
+  odps/
+    products/
+  versions/</code></pre>
+<p>The generated ODPC fragments capture portfolio objects. The ODPC catalog collects those objects. The ODPG graph captures relationships. The ODPS product files describe generated data product drafts.</p>
+<h2>3. Human And Agent Outputs</h2>
+<p>The portfolio builder creates outputs for two audiences:</p>
+<ul>
+<li><code>index.html</code> is for people who need to review the portfolio in a browser.</li>
+<li>YAML files are for AI agents, validation, automation, version control, and later refreshes.</li>
+</ul>
+<p>This is why the builder matters: human reviewers can inspect one portfolio page, while agents and scripts can read the same underlying structured artifacts.</p>
+<h2>4. Path To The Next Lesson</h2>
+<p>In Lecture 18, you will create the source lanes, add sample source files, run <code>portfolio build</code>, inspect the generated workspace, and open <code>index.html</code> in a browser.</p>
+<h2>What You Learned</h2>
+<ul>
+<li>Portfolio build starts from four source lanes: objectives, use cases, signals, and products.</li>
+<li>The generated workspace contains HTML for humans and YAML for agents and automation.</li>
+<li>The workspace connects ODPC fragments, an ODPC catalog, an ODPG graph, ODPS product drafts, and versioned portfolio outputs.</li>
+</ul>
+<h2>Next Lesson</h2>
+<p>Continue to <a href="../18-build-first-portfolio-in-colab/">Lecture 18: Build the first portfolio in Colab</a>.</p>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

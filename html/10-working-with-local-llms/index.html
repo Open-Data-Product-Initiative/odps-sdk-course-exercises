@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lecture 10: Working with Local LLMs | Open Data Products SDK Course</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <div class="site">
+    <aside class="sidebar">
+      <a class="brand" href="../index.html"><img src="../assets/cover.png" alt="Open Data Products SDK course cover"></a>
+      <div class="nav-title">Course Material</div>
+      <ul class="nav-list">
+<li><a href="../06-what-the-sdk-is/index.html">Lecture 6: What the Open Data Products SDK Is</a></li>
+<li><a href="../07-installing-and-running-sdk/index.html">Lecture 7: Installing and Running the SDK</a></li>
+<li><a href="../08-validating-and-explaining-standards-files/index.html">Lecture 8: Validating and Explaining Standards Files</a></li>
+<li><a href="../09-use-odpv-vocabulary-helpers/index.html">Lecture 9: Use the ODPV Vocabulary Helpers</a></li>
+<li><a href="index.html" aria-current="page">Lecture 10: Working with Local LLMs</a></li>
+<li><a href="../11-working-with-online-llm-providers/index.html">Lecture 11: Working with Online LLM Providers</a></li>
+<li><a href="../12-generating-odps-data-products/index.html">Lecture 12: Generating ODPS Data Products from Business Requirements</a></li>
+<li><a href="../13-working-with-generation-and-fragments/index.html">Lecture 13: Working with Generation and Fragments</a></li>
+<li><a href="../14-working-with-odpg-graphs/index.html">Lecture 14: Working with ODPG Graphs</a></li>
+<li><a href="../15-working-with-odpc-catalogs/index.html">Lecture 15: Working with ODPC Catalogs</a></li>
+<li><a href="../16-from-commands-to-portfolio-builder/index.html">Lecture 16: From Commands to Portfolio Builder</a></li>
+<li><a href="../17-what-the-portfolio-builder-creates/index.html">Lecture 17: What the Portfolio Builder Creates</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/index.html">Lecture 18: Build the First Portfolio in Colab</a></li>
+<li><a href="../19-update-portfolio-and-review-version-history/index.html">Lecture 19: Update the Portfolio and Review Version History</a></li>
+<li><a href="../20-how-to-localize-portfolio/index.html">Lecture 20: How to Localize a Portfolio</a></li>
+<li><a href="../21-final-review-human-view-and-agent-ready-yaml/index.html">Lecture 21: Final Review: Human View and Agent-Ready YAML</a></li>
+<li><a href="../22-wrap-up-and-next-steps/index.html">Lecture 22: Wrap-up and Next Steps</a></li>
+<li><a href="../index.html">Open Data Products SDK Course Exercises</a></li>
+<li><a href="../11-working-with-online-llm-providers/source_docs/passenger-flow-product.html">Passenger Flow Data Product</a></li>
+<li><a href="../12-generating-odps-data-products/source_docs/partner-api-product-brief.html">Partner Inventory Availability API</a></li>
+<li><a href="../12-generating-odps-data-products/source_docs/support-operations-email-thread.html">Email thread: Support Operations Performance Product</a></li>
+<li><a href="../13-working-with-generation-and-fragments/source_docs/products/customer-analytics-product.html">Customer Analytics Product</a></li>
+<li><a href="../13-working-with-generation-and-fragments/source_docs/use-cases/customer-retention-use-case.html">Customer Retention</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/source_docs/objectives/reduce-churn-objective.html">Reduce Preventable Churn</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/source_docs/products/customer-health-product.html">Customer Health Signals Product</a></li>
+<li><a href="../18-build-first-portfolio-in-colab/source_docs/use-cases/retention-risk-workflow.html">Retention Risk Workflow</a></li>
+      </ul>
+    </aside>
+    <main class="content-wrap">
+      <article class="content">
+        <div class="breadcrumbs"><a href="../index.html">Course home</a></div>
+<h1>Lecture 10: Working with Local LLMs</h1>
+<p>Local LLMs are useful for cost control, development, testing, privacy, data sovereignty, and restricted environments. This lesson uses Ollama and a local config file to generate one ODPC signal fragment.</p>
+<h2>1. Prepare Ollama</h2>
+<pre><code class="language-bash">ollama pull qwen2.5
+ollama list</code></pre>
+<p>Keep Ollama running locally.</p>
+<h2>2. Create a lesson folder</h2>
+<pre><code class="language-bash">mkdir -p odps-sdk-guides/10-local-llm/source_docs
+mkdir -p odps-sdk-guides/10-local-llm/fragments
+cd odps-sdk-guides/10-local-llm</code></pre>
+<h2>3. Create A Local Generation Config</h2>
+<pre><code class="language-bash">cat &gt; generation.config.yaml &lt;&lt;&#x27;YAML&#x27;
+provider: ollama
+model: qwen2.5
+input: source_docs/
+output: fragments/
+
+providers:
+  ollama:
+    type: ollama
+    model: qwen2.5
+    baseUrl: http://localhost:11434
+YAML</code></pre>
+<p>The top-level <code>provider</code>, <code>model</code>, <code>input</code>, and <code>output</code> values are defaults for generation commands that use this config.</p>
+<h2>4. Add One Source File</h2>
+<pre><code class="language-bash">cat &gt; source_docs/turnaround-delay-signal.txt &lt;&lt;&#x27;TXT&#x27;
+Airport operations teams need an early signal when aircraft turnaround is at
+risk of exceeding the planned ground time. The signal should consider late
+inbound arrival, missing cleaning crew assignment, delayed baggage unloading,
+and gate conflict status. The signal is used by the operations control center
+to trigger recovery actions before departure delay becomes unavoidable.
+TXT</code></pre>
+<h2>5. Generate One Signal Fragment</h2>
+<pre><code class="language-bash">open-data-products generate \
+  --config generation.config.yaml \
+  --input source_docs/turnaround-delay-signal.txt \
+  --kind signal</code></pre>
+<p>The command prints a short human-readable generation summary. Add <code>--json</code> when you want machine-readable output for automation.</p>
+<h2>6. Inspect The Result</h2>
+<pre><code class="language-bash">ls fragments/</code></pre>
+<p>You should see a generated file with a name similar to:</p>
+<pre><code class="language-text">signal_&lt;generated-id&gt;.yaml</code></pre>
+<h2>What You Learned</h2>
+<ul>
+<li><code>--kind signal</code> selects the signal prompt.</li>
+<li>The source file can be plain <code>.txt</code>.</li>
+<li>The output is a separate ODPC fragment YAML file.</li>
+<li>Local defaults can live in <code>generation.config.yaml</code>.</li>
+</ul>
+<h2>Next Lesson</h2>
+<p>Continue to <a href="../11-working-with-online-llm-providers/">Lecture 11: Working with online LLM providers</a>.</p>
+      </article>
+    </main>
+  </div>
+</body>
+</html>
