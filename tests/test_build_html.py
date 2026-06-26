@@ -70,6 +70,7 @@ class BuildHtmlTest(unittest.TestCase):
         self.assertIn('href="06-lesson/index.html"', index.read_text(encoding="utf-8"))
         self.assertIn('href="index.html"', index.read_text(encoding="utf-8"))
         self.assertNotIn('href="html/index.html"', index.read_text(encoding="utf-8"))
+        self.assertNotIn('href="06-lesson/source_docs/input.html"', index.read_text(encoding="utf-8"))
         self.assertIn("<li>first line wrapped continuation</li>", index.read_text(encoding="utf-8"))
         self.assertNotIn("</li>\n<p>wrapped continuation</p>", index.read_text(encoding="utf-8"))
         self.assertIn('href="source_docs/input.html"', lesson.read_text(encoding="utf-8"))

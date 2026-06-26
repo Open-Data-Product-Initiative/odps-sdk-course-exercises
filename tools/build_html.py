@@ -487,10 +487,9 @@ def render_markdown(
 
 
 def nav_items(root: Path, md_files: list[Path], md_outputs: dict[Path, Path], current: Path) -> str:
-    readmes = [path for path in md_files if path.name == "README.md"]
-    others = [path for path in md_files if path.name != "README.md"]
-    ordered = sorted(readmes, key=lambda path: path.relative_to(root).as_posix()) + sorted(
-        others, key=lambda path: path.relative_to(root).as_posix()
+    ordered = sorted(
+        (path for path in md_files if path.name == "README.md"),
+        key=lambda path: (path.relative_to(root) != Path("README.md"), path.relative_to(root).as_posix()),
     )
     items = []
     for source in ordered:
